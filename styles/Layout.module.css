@@ -1,0 +1,63 @@
+.header {
+    height: 80px;
+    width: 95%;
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.inner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.header-logo {
+    flex: 1;
+}
+
+.logo {
+    cursor: pointer;
+    width: 70px;
+}
+
+.header-links {
+    visibility: visible;
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    max-width: 300px;
+}
+
+.header-link {
+    cursor: pointer;
+    font-family: "Bushcraft";
+    transition: color 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
+}
+
+.header-link:hover{
+    color: orange;
+    transition: color 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
+}
+
+.header-menu {
+    visibility: hidden;
+    flex: 1;
+    text-align: right;
+}
+
+
+@media (max-width: 768px) {
+    .header-links {
+        visibility: hidden;
+    }
+
+    .header-menu {
+        visibility: visible;
+    }
+}

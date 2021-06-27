@@ -1,9 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Bushcraft";
+  src: url("/fonts/distress.otf");
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  background-color: black;
+  scroll-behavior: smooth;
+  color: white;
 }
 
 a {
@@ -13,4 +27,9 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: #E48E29;
+  color: white;
 }
