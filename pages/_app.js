@@ -1,7 +1,7 @@
-import Layout from '../components/layout'
+import Layout from "../components/layout";
 import { AnimatePresence } from "framer-motion";
 
-import '../styles/globals.css'
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </AnimatePresence>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
