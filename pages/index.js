@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import { InView } from "react-intersection-observer";
+import { useWindowWidth } from "@react-hook/window-size";
 
 import ReactCardCarousel from "react-card-carousel";
 import EventCard from "../components/EventCard";
@@ -39,6 +40,8 @@ var events = [
 ];
 
 export default function Home() {
+  const windowWidth = useWindowWidth();
+
   // fire animation switch
   const [isSwitched, setIsSwitched] = useState(false);
 
@@ -288,58 +291,60 @@ export default function Home() {
           )}
         </InView>
 
-        <div className={styles["event-carousel-navigation"]}>
-          <InView threshold={0.75}>
-            {({ ref, inView }) => (
+        <InView threshold={0.5}>
+          {({ ref, inView }) => (
+            <motion.div
+              className={styles["event-carousel"]}
+              ref={ref}
+              variants={animations.elementAnimation}
+              initial="initial"
+              animate={inView ? "animate" : "initial"}
+            >
               <motion.div
-                ref={ref}
                 variants={animations.elementAnimation}
-                initial="initial"
-                animate={inView ? "animate" : "initial"}
-                className="rounded-full h-10 w-10 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
+                className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
                 onClick={() => carouselRef.current.prev()}
               >
                 <ChevronLeftIcon className="h-5 w-5 text-white" />
               </motion.div>
-            )}
-          </InView>
 
-          <InView threshold={0.75}>
-            {({ ref, inView }) => (
+              <div className={styles["event-carousel-main"]}>
+                <ReactCardCarousel
+                  autoplay={false}
+                  autoplay_speed={5000}
+                  spread={
+                    windowWidth > 768
+                      ? "medium"
+                      : windowWidth > 1280
+                      ? "wide"
+                      : "narrow"
+                  }
+                  afterChange={(cardIndex) => handleCardChange(cardIndex)}
+                  ref={carouselRef}
+                >
+                  {events.map((event, index) => {
+                    return (
+                      <EventCard
+                        key={index}
+                        event={event}
+                        animate={eventControls[index]}
+                        initial={index == 0 ? "inFocus" : "outOfFocus"}
+                      />
+                    );
+                  })}
+                </ReactCardCarousel>
+              </div>
+
               <motion.div
-                ref={ref}
                 variants={animations.elementAnimation}
-                initial="initial"
-                animate={inView ? "animate" : "initial"}
-                className="rounded-full h-10 w-10 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
+                className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
                 onClick={() => carouselRef.current.next()}
               >
                 <ChevronRightIcon className="h-5 w-5 text-white" />
               </motion.div>
-            )}
-          </InView>
-        </div>
-
-        <div className={styles["event-carousel"]}>
-          <ReactCardCarousel
-            autoplay={false}
-            autoplay_speed={5000}
-            spread="wide"
-            afterChange={(cardIndex) => handleCardChange(cardIndex)}
-            ref={carouselRef}
-          >
-            {events.map((event, index) => {
-              return (
-                <EventCard
-                  key={index}
-                  event={event}
-                  animate={eventControls[index]}
-                  initial={index == 0 ? "inFocus" : "outOfFocus"}
-                />
-              );
-            })}
-          </ReactCardCarousel>
-        </div>
+            </motion.div>
+          )}
+        </InView>
       </motion.div>
     </motion.div>
   );

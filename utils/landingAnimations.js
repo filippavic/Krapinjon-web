@@ -68,6 +68,20 @@ const eventDetailsAnimation = {
   },
 };
 
+const eventButtonAnimation = {
+  outOfFocus: { opacity: 0, y: 10, scale: 1.1 },
+  inFocus: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      delay: 0.9,
+      duration: 0.3,
+      ease: [0.6, 0.05, -0.01, 0.9],
+    },
+  },
+};
+
 const elementAnimation = {
   initial: { opacity: 0, scale: 1.1 },
   animate: {
@@ -87,5 +101,6 @@ export default {
   letterAnimation,
   eventAnimation,
   eventDetailsAnimation,
+  eventButtonAnimation,
   elementAnimation,
 };

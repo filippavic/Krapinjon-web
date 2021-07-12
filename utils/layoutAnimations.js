@@ -33,4 +33,8 @@ const headerChildAnimation = {
   },
 };
 
-export default { headerMainAnimation, headerAnimation, headerChildAnimation };
+export default {
+  headerMainAnimation,
+  headerAnimation,
+  headerChildAnimation,
+};

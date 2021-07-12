@@ -35,6 +35,7 @@
 }
 
 .header-link {
+  display: initial;
   cursor: pointer;
   font-family: "Bushcraft";
   transition: color 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
@@ -45,6 +46,10 @@
   transition: color 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
 }
 
+.header-link:last-child {
+  display: none;
+}
+
 .header-menu {
   visibility: hidden;
   flex: 1;
@@ -53,7 +58,15 @@
 
 @media (max-width: 768px) {
   .header-links {
-    visibility: hidden;
+    justify-content: flex-end;
+  }
+
+  .header-link {
+    display: none;
+  }
+
+  .header-link:last-child {
+    display: initial;
   }
 
   .header-menu {
