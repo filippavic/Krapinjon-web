@@ -3,13 +3,20 @@ import { AnimatePresence } from "framer-motion";
 
 import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
-    <AnimatePresence exitBeforeEnter>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </AnimatePresence>
+    <Layout>
+      <AnimatePresence
+        exitBeforeEnter
+        onExitComplete={() => {
+          if (typeof window !== "undefined") {
+            window.scrollTo({ top: 0 });
+          }
+        }}
+      >
+        <Component {...pageProps} key={router.route} />
+      </AnimatePresence>
+    </Layout>
   );
 }
 

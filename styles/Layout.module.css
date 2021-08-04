@@ -1,6 +1,6 @@
 .header {
   height: 80px;
-  width: 95%;
+  width: 90%;
   position: fixed;
   top: 0px;
   z-index: 100;
@@ -24,6 +24,13 @@
 .logo {
   cursor: pointer;
   width: 70px;
+  filter: saturate(0);
+  transition: filter 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
+}
+
+.logo:hover {
+  filter: saturate(1);
+  transition: filter 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
 }
 
 .header-links {
@@ -42,7 +49,7 @@
 }
 
 .header-link:hover {
-  color: orange;
+  color: #fc8a17;
   transition: color 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
 }
 

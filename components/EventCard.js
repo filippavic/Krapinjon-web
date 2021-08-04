@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { CalendarIcon } from "@heroicons/react/outline";
@@ -26,7 +26,7 @@ export default function EventCard(props) {
           </motion.h2>
         </div>
 
-        <img src={props.event.image} className={styles["event-image"]} />
+        <img src={props.event.image} className={styles["event-image"]} alt="" />
       </div>
 
       <motion.div
@@ -34,7 +34,7 @@ export default function EventCard(props) {
         className="inline-flex items-center mt-5"
       >
         <CalendarIcon className="h-3 w-3 sm:h-5 sm:w-5 text-white mr-1" />
-        <span className="text-xs sm:text-md md:text-lg font-semibold">
+        <span className="text-xs sm:text-base md:text-lg font-semibold">
           {props.event.time}
         </span>
       </motion.div>
@@ -44,7 +44,7 @@ export default function EventCard(props) {
         className="inline-flex items-center mt-2"
       >
         <LocationMarkerIcon className="h-3 w-3 sm:h-5 sm:w-5 text-white mr-1" />
-        <span className="text-xs sm:text-md md:text-lg font-semibold">
+        <span className="text-xs sm:text-base md:text-lg font-semibold">
           {props.event.location}
         </span>
       </motion.div>

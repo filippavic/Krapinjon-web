@@ -48,7 +48,7 @@
     background-color: #ef5a00;
   }
   50% {
-    background-color: #ff7800;
+    background-color: #fc8a17;
   }
 }
 
@@ -393,7 +393,7 @@
 }
 
 .switched {
-  background: orange !important;
+  background: #fc8a17 !important;
   border-color: #fec22a !important;
 }
 
@@ -415,7 +415,7 @@
   font-family: "Bushcraft";
   font-size: 65px;
   text-align: center;
-  color: orange;
+  color: #fc8a17;
   line-height: normal;
   height: fit-content;
   width: fit-content;

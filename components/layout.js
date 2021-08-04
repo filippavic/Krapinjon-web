@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 import { ChevronUpIcon } from "@heroicons/react/solid";
 
-import krapinjonLogo from "../public/images/krapinjon_logo_potential.png";
+import krapinjonLogo from "../public/images/Krapinjon_logo.png";
 
 import animations from "../utils/layoutAnimations";
 import styles from "../styles/Layout.module.css";
@@ -49,12 +49,13 @@ export default function Layout({ children }) {
             className={styles["header-logo"]}
             variants={animations.headerChildAnimation}
           >
-            <motion.div className={styles["logo"]} whileHover={{ scale: 1.05 }}>
-              <Link href="/">
+            <motion.div className={styles["logo"]}>
+              <Link href="/" scroll={false}>
                 <a>
                   <Image
                     src={krapinjonLogo}
-                    unoptimized="true"
+                    priority={true}
+                    layout="responsive"
                     alt="Krapinjon"
                   />
                 </a>
@@ -74,7 +75,7 @@ export default function Layout({ children }) {
                 Projekti
               </motion.a>
             </Link>
-            <Link href="/novosti">
+            <Link href="/novosti" scroll={false}>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}
@@ -120,19 +121,23 @@ export default function Layout({ children }) {
       <footer>
         <div
           variants={animations.footerAnimation}
-          className="mx-auto w-9/12 px-4 xl:px-12 2xl:px-4 max-w-screen-xl"
+          className="mx-auto w-9/12 max-w-screen-xl"
         >
           <div className="mt-8 sm:mt-0 sm:w-full sm:px-8 flex flex-col md:flex-row md:justify-between pt-10 pb-10">
             <div className="flex-none w-full md:w-1/6 max-w-xs self-center md:self-top">
               <Link href="/">
                 <a>
-                  <Image src={krapinjonLogo} alt="Krapinjon" />
+                  <Image
+                    src={krapinjonLogo}
+                    layout="responsive"
+                    alt="Krapinjon"
+                  />
                 </a>
               </Link>
             </div>
 
             <div className="flex-none w-full md:w-2/6 lg:w-3/6 flex flex-col justify-between items-center mt-5 md:mt-0">
-              <h2 className="w-2/3 text-center text-sm lg:text-lg mt-3 md:mt-0 md:text-left font-semibold">
+              <h2 className="w-2/3 text-center text-sm mt-3 md:mt-0 md:text-left font-semibold">
                 Krapinska ulica 1, 49000 Krapina
               </h2>
 
@@ -141,13 +146,13 @@ export default function Layout({ children }) {
                   href="tel:+38591123456"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-auto text-white font-normal text-sm lg:text-md hover:text-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
+                  className="w-auto text-white font-normal text-sm hover:text-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
                 >
                   +385 91 123 456
                 </a>
                 <a
                   href="mailto:info@krapinjon.hr"
-                  className="w-auto text-white font-normal text-sm lg:text-md hover:text-krapinjon-orange transition duration-200 ease-in-out"
+                  className="w-auto text-white font-normal text-sm hover:text-krapinjon-orange transition duration-200 ease-in-out"
                 >
                   info@krapinjon.hr
                 </a>
@@ -158,22 +163,22 @@ export default function Layout({ children }) {
               <div className="w-full flex flex-row align-middle md:ali justify-evenly md:justify-between mb-10">
                 <div className="flex flex-col">
                   <Link href="/">
-                    <a className="text-white font-normal text-sm hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
+                    <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Početna
                     </a>
                   </Link>
                   <Link href="/projekti">
-                    <a className="text-white font-normal text-sm hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
+                    <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Projekti
                     </a>
                   </Link>
                   <Link href="/novosti">
-                    <a className="text-white font-normal text-sm hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
+                    <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Novosti
                     </a>
                   </Link>
                   <Link href="/informacije">
-                    <a className="text-white font-normal text-sm hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
+                    <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Informacije
                     </a>
                   </Link>
@@ -182,25 +187,25 @@ export default function Layout({ children }) {
                 <div className="flex flex-col">
                   <a
                     href="#"
-                    className="text-white font-normal text-sm text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
+                    className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Facebook
                   </a>
                   <a
                     href="#"
-                    className="text-white font-normal text-sm text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
+                    className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Instagram
                   </a>
                   <a
                     href="#"
-                    className="text-white font-normal text-sm text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
+                    className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Twitter
                   </a>
                   <a
                     href="#"
-                    className="text-white font-normal text-sm text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
+                    className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Youtube
                   </a>
@@ -214,7 +219,7 @@ export default function Layout({ children }) {
                 </div>
               </div>
 
-              <span className="text-white font-normal text-sm self-center md:self-start">
+              <span className="text-white font-normal text-xs self-center md:self-start">
                 &copy; 2021. Udruga Krapinjon
               </span>
             </div>

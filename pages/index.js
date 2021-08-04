@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
@@ -82,9 +82,12 @@ export default function Home() {
   };
 
   return (
-    <motion.div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      exit={{ opacity: 0, transition: { duration: 1 } }}
+    >
       <Head>
-        <title>Krapinjon | Početna</title>
+        <title>Krapinjon - udruga mladih iz Krapine | Početna</title>
 
         <meta name="description" content="Udruga Krapinjon..." />
         <meta name="copyright" content="Filip Pavić/Udruga Krapinjon" />
@@ -237,7 +240,7 @@ export default function Home() {
               objectFit="cover"
               objectPosition="top"
               unoptimized="true"
-              alt="Cave at night"
+              alt=""
             />
           </motion.div>
         </motion.div>
@@ -291,7 +294,7 @@ export default function Home() {
           )}
         </InView>
 
-        <InView threshold={0.5}>
+        <InView threshold={0.3}>
           {({ ref, inView }) => (
             <motion.div
               className={styles["event-carousel"]}
