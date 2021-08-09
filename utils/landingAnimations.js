@@ -69,7 +69,7 @@ const eventDetailsAnimation = {
 };
 
 const eventButtonAnimation = {
-  outOfFocus: { opacity: 0, y: 10, scale: 1.1 },
+  outOfFocus: { opacity: 0, y: 10, scale: 1.05 },
   inFocus: {
     opacity: 1,
     y: 0,
@@ -83,7 +83,7 @@ const eventButtonAnimation = {
 };
 
 const elementAnimation = {
-  initial: { opacity: 0, scale: 1.1 },
+  initial: { opacity: 0, scale: 1.05 },
   animate: {
     opacity: 1,
     scale: 1,

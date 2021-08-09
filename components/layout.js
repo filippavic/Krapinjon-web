@@ -50,7 +50,7 @@ export default function Layout({ children }) {
             variants={animations.headerChildAnimation}
           >
             <motion.div className={styles["logo"]}>
-              <Link href="/" scroll={false}>
+              <Link href="/">
                 <a>
                   <Image
                     src={krapinjonLogo}
@@ -75,7 +75,7 @@ export default function Layout({ children }) {
                 Projekti
               </motion.a>
             </Link>
-            <Link href="/novosti" scroll={false}>
+            <Link href="/novosti">
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}

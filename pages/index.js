@@ -84,10 +84,13 @@ export default function Home() {
   return (
     <motion.div
       className={styles.container}
-      exit={{ opacity: 0, transition: { duration: 1 } }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.8, ease: [0.6, 0.01, -0.05, 0.9] },
+      }}
     >
       <Head>
-        <title>Krapinjon - udruga mladih iz Krapine | Početna</title>
+        <title>Krapinjon - udruga mladih iz Krapine</title>
 
         <meta name="description" content="Udruga Krapinjon..." />
         <meta name="copyright" content="Filip Pavić/Udruga Krapinjon" />
@@ -108,14 +111,14 @@ export default function Home() {
         {/* <meta property="og:image" content={require('../images/web_preview.jpg')} /> */}
 
         {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://krapinjon.hr" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://krapinjon.hr" />
         <meta
-          property="twitter:title"
+          name="twitter:title"
           content="Krapinjon - udruga mladih iz Krapine"
         />
-        <meta property="twitter:description" content="Udruga Krapinjon..." />
-        {/* <meta property="twitter:image" content={require('../images/web_preview.jpg')} /> */}
+        <meta name="twitter:description" content="Udruga Krapinjon..." />
+        {/* <meta name="twitter:image" content={require('../images/web_preview.jpg')} /> */}
 
         <link rel="icon" href="/favicon.ico" />
       </Head>

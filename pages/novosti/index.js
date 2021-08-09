@@ -2,61 +2,44 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { createClient } from "contentful";
 
-import NewsCard from "../components/NewsCard";
+import NewsCard from "../../components/NewsCard";
 
-import landscape from "../public/images/krapinjon_landscape_bg.jpg";
+import landscape from "../../public/images/krapinjon_landscape_bg.jpg";
 
-import animations from "../utils/otherAnimations";
+import animations from "../../utils/otherAnimations";
 
-// placeholder news
-var news = [
-  {
-    title: "Krapinjon održao prvu skupštinu u 2021. godini",
-    date: "10.7.2021.",
-    image: "/images/event_1.jpg",
-    tags: ["Udruga", "Važno"],
-  },
-  {
-    title: "Jovana Jeremić održala predavanje 'Đak generacije'",
-    date: "2.8.2021.",
-    image: "/images/event_2.jpg",
-    tags: ["Događaji", "Predavanja", "Zanimljivo"],
-  },
-  {
-    title: "Najava: KraKon 2022 donosi Star Wars i Star Trek",
-    date: "22.9.2021.",
-    image: "/images/event_3.jpg",
-    tags: ["Najava"],
-  },
-  {
-    title: "Krapinjon održao prvu skupštinu u 2021. godini",
-    date: "10.7.2021.",
-    image: "/images/event_1.jpg",
-    tags: [],
-  },
-  {
-    title: "Jovana Jeremić održala predavanje 'Đak generacije'",
-    date: "2.8.2021.",
-    image: "/images/event_2.jpg",
-    tags: [],
-  },
-  {
-    title: "Najava: KraKon 2022 donosi Star Wars i Star Trek",
-    date: "22.9.2021.",
-    image: "/images/event_3.jpg",
-    tags: [],
-  },
-];
+export async function getStaticProps() {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  });
 
-export default function Novosti() {
+  const res = await client.getEntries({
+    content_type: "news",
+    select:
+      "fields.slug,fields.title,fields.tags,fields.thumbnail,sys.contentType,sys.createdAt",
+  });
+
+  return {
+    props: {
+      news: res.items,
+    },
+  };
+}
+
+export default function Novosti({ news }) {
   return (
     <motion.div
       className="min-h-screen flex flex-col"
-      exit={{ opacity: 0, transition: { duration: 1 } }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] },
+      }}
     >
       <Head>
-        <title>Krapinjon - udruga mladih iz Krapine | Novosti</title>
+        <title>Novosti | Krapinjon - udruga mladih iz Krapine</title>
 
         <meta name="description" content="Udruga Krapinjon..." />
         <meta name="copyright" content="Filip Pavić/Udruga Krapinjon" />
@@ -77,14 +60,14 @@ export default function Novosti() {
         {/* <meta property="og:image" content={require('../images/web_preview.jpg')} /> */}
 
         {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://krapinjon.hr" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://krapinjon.hr" />
         <meta
-          property="twitter:title"
+          name="twitter:title"
           content="Krapinjon - udruga mladih iz Krapine"
         />
-        <meta property="twitter:description" content="Udruga Krapinjon..." />
-        {/* <meta property="twitter:image" content={require('../images/web_preview.jpg')} /> */}
+        <meta name="twitter:description" content="Udruga Krapinjon..." />
+        {/* <meta name="twitter:image" content={require('../images/web_preview.jpg')} /> */}
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
