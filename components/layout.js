@@ -50,13 +50,14 @@ export default function Layout({ children }) {
             variants={animations.headerChildAnimation}
           >
             <motion.div className={styles["logo"]}>
-              <Link href="/">
+              <Link href="/" prefetch={false}>
                 <a>
                   <Image
                     src={krapinjonLogo}
                     priority={true}
                     layout="responsive"
                     alt="Krapinjon"
+                    sizes="256px"
                   />
                 </a>
               </Link>
@@ -67,7 +68,7 @@ export default function Layout({ children }) {
             className={styles["header-links"]}
             variants={animations.headerAnimation}
           >
-            <Link href="/projekti">
+            <Link href="/projekti" prefetch={false}>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}
@@ -75,7 +76,7 @@ export default function Layout({ children }) {
                 Projekti
               </motion.a>
             </Link>
-            <Link href="/novosti">
+            <Link href="/novosti" prefetch={false}>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}
@@ -83,7 +84,7 @@ export default function Layout({ children }) {
                 Novosti
               </motion.a>
             </Link>
-            <Link href="/informacije">
+            <Link href="/informacije" prefetch={false}>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}
@@ -125,7 +126,7 @@ export default function Layout({ children }) {
         >
           <div className="mt-8 sm:mt-0 sm:w-full sm:px-8 flex flex-col md:flex-row md:justify-between pt-10 pb-10">
             <div className="flex-none w-full md:w-1/6 max-w-xs self-center md:self-top">
-              <Link href="/">
+              <Link href="/" prefetch={false}>
                 <a>
                   <Image
                     src={krapinjonLogo}
@@ -162,22 +163,22 @@ export default function Layout({ children }) {
             <div className="flex-none w-full md:w-3/6 lg:w-2/6 mt-10 md:mt-0 flex flex-col justify-between self-center">
               <div className="w-full flex flex-row align-middle md:ali justify-evenly md:justify-between mb-10">
                 <div className="flex flex-col">
-                  <Link href="/">
+                  <Link href="/" prefetch={false}>
                     <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Početna
                     </a>
                   </Link>
-                  <Link href="/projekti">
+                  <Link href="/projekti" prefetch={false}>
                     <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Projekti
                     </a>
                   </Link>
-                  <Link href="/novosti">
+                  <Link href="/novosti" prefetch={false}>
                     <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Novosti
                     </a>
                   </Link>
-                  <Link href="/informacije">
+                  <Link href="/informacije" prefetch={false}>
                     <a className="text-white font-normal text-xs hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out">
                       Informacije
                     </a>

@@ -43,6 +43,7 @@ export default function NewsCard(props) {
               objectFit="cover"
               objectPosition="center"
               alt=""
+              className="rounded-lg"
             />
           </motion.div>
         </div>

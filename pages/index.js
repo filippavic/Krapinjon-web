@@ -4,11 +4,12 @@ import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import { InView } from "react-intersection-observer";
 import { useWindowWidth } from "@react-hook/window-size";
+import { createClient } from "contentful";
 
 import ReactCardCarousel from "react-card-carousel";
 import EventCard from "../components/EventCard";
-import { ChevronLeftIcon } from "@heroicons/react/solid";
-import { ChevronRightIcon } from "@heroicons/react/solid";
+import ChevronLeftIcon from "@heroicons/react/solid/ChevronLeftIcon";
+import ChevronRightIcon from "@heroicons/react/solid/ChevronRightIcon";
 
 import cave from "../public/images/krapinjon_cave_bg.jpg";
 
@@ -17,29 +18,28 @@ import styles from "../styles/Home.module.css";
 
 var classNames = require("classnames");
 
-// placeholder events
-var events = [
-  {
-    title: "Koncert Elona Muska",
-    time: "2.8.2021., 20:00",
-    image: "http://localhost:3000/images/event_1.jpg",
-    location: "Parkiralište Keramixa",
-  },
-  {
-    title: "Predavanje Jovane Jeremić",
-    time: "19.8.2021., 18:30",
-    image: "http://localhost:3000/images/event_2.jpg",
-    location: "Podgora Krapinska",
-  },
-  {
-    title: "Radionica fotografije",
-    time: "1.9.2021., 11:00",
-    image: "http://localhost:3000/images/event_3.jpg",
-    location: "Random lokacija",
-  },
-];
+export async function getStaticProps() {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  });
 
-export default function Home() {
+  const res = await client.getEntries({
+    content_type: "event",
+    "fields.finished": "false",
+    select:
+      "fields.name,fields.type,fields.location,fields.startDateTime,fields.endDateTime,fields.allDay,fields.infoLink,fields.thumbnail,fields.finished,sys.contentType",
+    order: "fields.startDateTime",
+  });
+
+  return {
+    props: {
+      events: res.items,
+    },
+  };
+}
+
+export default function Home({ events }) {
   const windowWidth = useWindowWidth();
 
   // fire animation switch
@@ -297,60 +297,82 @@ export default function Home() {
           )}
         </InView>
 
-        <InView threshold={0.3}>
-          {({ ref, inView }) => (
-            <motion.div
-              className={styles["event-carousel"]}
-              ref={ref}
-              variants={animations.elementAnimation}
-              initial="initial"
-              animate={inView ? "animate" : "initial"}
-            >
-              <motion.div
+        {events.length == 0 && (
+          <InView threshold={0.3}>
+            {({ ref, inView }) => (
+              <motion.h2
+                className={styles["event-empty-title"]}
+                ref={ref}
                 variants={animations.elementAnimation}
-                className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
-                onClick={() => carouselRef.current.prev()}
+                initial="initial"
+                animate={inView ? "animate" : "initial"}
               >
-                <ChevronLeftIcon className="h-5 w-5 text-white" />
-              </motion.div>
+                Trenutno nema nadolazećih događaja
+              </motion.h2>
+            )}
+          </InView>
+        )}
 
-              <div className={styles["event-carousel-main"]}>
-                <ReactCardCarousel
-                  autoplay={false}
-                  autoplay_speed={5000}
-                  spread={
-                    windowWidth > 768
-                      ? "medium"
-                      : windowWidth > 1280
-                      ? "wide"
-                      : "narrow"
-                  }
-                  afterChange={(cardIndex) => handleCardChange(cardIndex)}
-                  ref={carouselRef}
-                >
-                  {events.map((event, index) => {
-                    return (
-                      <EventCard
-                        key={index}
-                        event={event}
-                        animate={eventControls[index]}
-                        initial={index == 0 ? "inFocus" : "outOfFocus"}
-                      />
-                    );
-                  })}
-                </ReactCardCarousel>
-              </div>
-
+        {events.length !== 0 && (
+          <InView threshold={0.3}>
+            {({ ref, inView }) => (
               <motion.div
+                className={styles["event-carousel"]}
+                ref={ref}
                 variants={animations.elementAnimation}
-                className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
-                onClick={() => carouselRef.current.next()}
+                initial="initial"
+                animate={inView ? "animate" : "initial"}
               >
-                <ChevronRightIcon className="h-5 w-5 text-white" />
+                {events.length > 1 && (
+                  <motion.div
+                    variants={animations.elementAnimation}
+                    className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
+                    onClick={() => carouselRef.current.prev()}
+                  >
+                    <ChevronLeftIcon className="h-5 w-5 text-white" />
+                  </motion.div>
+                )}
+
+                <div className={styles["event-carousel-main"]}>
+                  <ReactCardCarousel
+                    autoplay={false}
+                    autoplay_speed={5000}
+                    spread={
+                      windowWidth > 768
+                        ? "medium"
+                        : windowWidth > 1280
+                        ? "wide"
+                        : "narrow"
+                    }
+                    afterChange={(cardIndex) => handleCardChange(cardIndex)}
+                    ref={carouselRef}
+                  >
+                    {events.map((event, index) => {
+                      return (
+                        <EventCard
+                          key={index}
+                          event={event}
+                          animate={eventControls[index]}
+                          initial={index == 0 ? "inFocus" : "outOfFocus"}
+                        />
+                      );
+                    })}
+                  </ReactCardCarousel>
+                </div>
+
+                {events.length > 1 && (
+                  <motion.div
+                    variants={animations.elementAnimation}
+                    className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
+                    onClick={() => carouselRef.current.next()}
+                  >
+                    <ChevronRightIcon className="h-5 w-5 text-white" />
+                  </motion.div>
+                )}
               </motion.div>
-            </motion.div>
-          )}
-        </InView>
+            )}
+          </InView>
+        )}
       </motion.div>
     </motion.div>
   );
