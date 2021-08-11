@@ -2,26 +2,48 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ContentfulHelper from "../../utils/contentfulHelper";
+import ContentfulHelper from "../../../utils/contentfulHelper";
 
-import NewsCard from "../../components/NewsCard";
-import Pagination from "../../components/Pagination";
+import NewsCard from "../../../components/NewsCard";
+import Pagination from "../../../components/Pagination";
 
-import landscape from "../../public/images/krapinjon_landscape_bg.jpg";
+import landscape from "../../../public/images/krapinjon_landscape_bg.jpg";
 
-import animations from "../../utils/otherAnimations";
-import { Config } from "../../utils/config";
+import animations from "../../../utils/otherAnimations";
+import { Config } from "../../../utils/config";
 
-export async function getStaticProps() {
-  const res = await ContentfulHelper.getArticlePage(1);
+export async function getStaticPaths() {
+  const totalArticles = await ContentfulHelper.getTotalArticlesNumber();
+  const totalPages = Math.ceil(totalArticles / Config.pagination.pageSize);
+
+  const paths = [];
+
+  for (let page = 2; page <= totalPages; page++) {
+    paths.push({ params: { page: page.toString() } });
+  }
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const res = await ContentfulHelper.getArticlePage(params.page);
 
   const totalPages = Math.ceil(res.totalCount / Config.pagination.pageSize);
+
+  if (params.page <= 0 || params.page > totalPages) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
       news: res.articles,
       totalPages,
-      currentPage: "1",
+      currentPage: params.page,
     },
   };
 }

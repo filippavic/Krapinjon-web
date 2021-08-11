@@ -152,6 +152,12 @@ export async function getStaticProps({ params }) {
     "fields.slug": params.slug,
   });
 
+  if (!items[0]) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: { article: items[0] },
   };

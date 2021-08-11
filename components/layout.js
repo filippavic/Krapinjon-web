@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import dayjs from "dayjs";
 
-import { ChevronUpIcon } from "@heroicons/react/solid";
+import ChevronUpIcon from "@heroicons/react/solid/ChevronUpIcon";
 
 import krapinjonLogo from "../public/images/Krapinjon_logo.png";
 
@@ -35,6 +36,8 @@ export default function Layout({ children }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  let now = dayjs().format("YYYY");
 
   return (
     <div>
@@ -221,7 +224,7 @@ export default function Layout({ children }) {
               </div>
 
               <span className="text-white font-normal text-xs self-center md:self-start">
-                &copy; 2021. Udruga Krapinjon
+                &copy; {now}. Udruga Krapinjon
               </span>
             </div>
           </div>
