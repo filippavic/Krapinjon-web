@@ -1,6 +1,7 @@
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import dayjs from "dayjs";
 
 import { CalendarIcon } from "@heroicons/react/outline";
@@ -10,6 +11,9 @@ import animations from "../utils/landingAnimations";
 import styles from "../styles/Home.module.css";
 
 export default function EventCard(props) {
+  // Animation variable
+  const anim = useAnimation();
+
   const {
     name,
     location,
@@ -52,11 +56,16 @@ export default function EventCard(props) {
     }
   }
 
+  // Animate card when its state changes
+  useEffect(() => {
+    anim.start(props.eventState);
+  }, [props.eventState]);
+
   return (
     <motion.div
       className={styles["event-container"]}
       variants={animations.eventAnimation}
-      animate={props.animate}
+      animate={anim}
       initial={props.initial}
     >
       <div className={styles["event-card"]}>
@@ -104,7 +113,7 @@ export default function EventCard(props) {
         </span>
       </motion.div>
 
-      <Link href={infoLink} prefetch={false}>
+      <Link href={infoLink} prefetch={false} passHref>
         <motion.a
           variants={animations.eventButtonAnimation}
           className="flex items-center justify-center py-2 px-5 rounded-full bg-transparent border border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold mt-5 cursor-pointer shadow-2xl transition duration-200 ease-in-out"

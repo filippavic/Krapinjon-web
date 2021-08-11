@@ -56,11 +56,17 @@ export default function Home({ events }) {
     setIsSwitched(!isSwitched);
   };
 
-  var eventControls = [];
+  // Controlling event cards
+  var eventState = [];
 
-  for (var i = 0; i < 3; ++i) {
-    eventControls[i] = useAnimation();
+  for (var i = 0; i < events.length; ++i) {
+    if (i == 0) eventState[i] = "inFocus";
+    else {
+      eventState[i] = "outOfFocus";
+    }
   }
+
+  const [eventStates, setEventStates] = useState(eventState);
 
   const handleCardChange = (cardIndex) => {
     let currentIndex = carouselRef.current.getCurrentIndex();
@@ -68,17 +74,18 @@ export default function Home({ events }) {
     let previousIndex = currentIndex - 1;
     let nextIndex = currentIndex + 1;
 
-    if (previousIndex >= eventControls.length) previousIndex = 0;
-    if (previousIndex < 0) previousIndex = eventControls.length - 1;
+    if (previousIndex >= eventStates.length) previousIndex = 0;
+    if (previousIndex < 0) previousIndex = eventStates.length - 1;
 
-    if (nextIndex >= eventControls.length) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = eventControls.length - 1;
+    if (nextIndex >= eventStates.length) nextIndex = 0;
+    if (nextIndex < 0) nextIndex = eventStates.length - 1;
 
-    eventControls[previousIndex].start("outOfFocus");
+    let items = [...eventStates];
+    items[previousIndex] = "outOfFocus";
+    items[nextIndex] = "outOfFocus";
+    items[currentIndex] = "inFocus";
 
-    eventControls[nextIndex].start("outOfFocus");
-
-    eventControls[currentIndex].start("inFocus");
+    setEventStates(items);
   };
 
   return (
@@ -352,7 +359,7 @@ export default function Home({ events }) {
                         <EventCard
                           key={index}
                           event={event}
-                          animate={eventControls[index]}
+                          eventState={eventStates[index]}
                           initial={index == 0 ? "inFocus" : "outOfFocus"}
                         />
                       );

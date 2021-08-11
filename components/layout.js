@@ -68,7 +68,7 @@ export default function Layout({ children }) {
             className={styles["header-links"]}
             variants={animations.headerAnimation}
           >
-            <Link href="/projekti" prefetch={false}>
+            <Link href="/projekti" prefetch={false} passHref>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}
@@ -76,7 +76,7 @@ export default function Layout({ children }) {
                 Projekti
               </motion.a>
             </Link>
-            <Link href="/novosti" prefetch={false}>
+            <Link href="/novosti" prefetch={false} passHref>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}
@@ -84,7 +84,7 @@ export default function Layout({ children }) {
                 Novosti
               </motion.a>
             </Link>
-            <Link href="/informacije" prefetch={false}>
+            <Link href="/informacije" prefetch={false} passHref>
               <motion.a
                 className={styles["header-link"]}
                 variants={animations.headerChildAnimation}

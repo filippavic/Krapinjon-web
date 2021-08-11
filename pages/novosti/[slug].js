@@ -86,34 +86,48 @@ const Text = ({ children }) => (
 
 const options = {
   renderMark: {
-    [MARKS.BOLD]: (text) => <Bold>{text}</Bold>,
+    [MARKS.BOLD]: function BoldText(text) {
+      return <Bold>{text}</Bold>;
+    },
   },
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
-    [BLOCKS.HEADING_1]: (node, children) => <Heading1>{children}</Heading1>,
-    [BLOCKS.HEADING_2]: (node, children) => <Heading2>{children}</Heading2>,
-    [BLOCKS.HEADING_3]: (node, children) => <Heading3>{children}</Heading3>,
-    [INLINES.HYPERLINK]: ({ data }, children) => (
-      <a
-        className="text-krapinjon-orange underline"
-        href={data.uri}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {children}
-      </a>
-    ),
-    [BLOCKS.UL_LIST]: (node, children) => (
-      <ul className="list-disc list-outside pl-12">{children}</ul>
-    ),
-    [BLOCKS.OL_LIST]: (node, children) => (
-      <ul className="list-decimal list-outside pl-12">{children}</ul>
-    ),
-    [BLOCKS.LIST_ITEM]: (node, children) => (
-      <li className="list-item text-krapinjon-orange leading-none">
-        {children}
-      </li>
-    ),
+    [BLOCKS.PARAGRAPH]: function Paragraph(node, children) {
+      return <Text>{children}</Text>;
+    },
+    [BLOCKS.HEADING_1]: function H1(node, children) {
+      return <Heading1>{children}</Heading1>;
+    },
+    [BLOCKS.HEADING_2]: function H2(node, children) {
+      return <Heading2>{children}</Heading2>;
+    },
+    [BLOCKS.HEADING_3]: function H3(node, children) {
+      return <Heading3>{children}</Heading3>;
+    },
+    [INLINES.HYPERLINK]: function Hyperlink({ data }, children) {
+      return (
+        <a
+          className="text-krapinjon-orange underline"
+          href={data.uri}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      );
+    },
+    [BLOCKS.UL_LIST]: function UlList(node, children) {
+      return <ul className="list-disc list-outside pl-12">{children}</ul>;
+    },
+    [BLOCKS.OL_LIST]: function OlList(node, children) {
+      return <ul className="list-decimal list-outside pl-12">{children}</ul>;
+    },
+    [BLOCKS.LIST_ITEM]: function ListItem(node, children) {
+      return (
+        <li className="list-item text-krapinjon-orange leading-none">
+          {children}
+        </li>
+      );
+    },
   },
 };
 
