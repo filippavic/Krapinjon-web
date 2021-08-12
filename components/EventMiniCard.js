@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import { CalendarIcon } from "@heroicons/react/outline";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 
-import { dateTimeToString } from "../utils/helperFunctions";
+import { dateTimeToString, getEventLink } from "../utils/helperFunctions";
 
 import animations from "../utils/otherAnimations";
 
 export default function EventMiniCard(props) {
   const {
     name,
+    slug,
     type,
     location,
     startDateTime,
@@ -22,9 +23,10 @@ export default function EventMiniCard(props) {
   } = props.event.fields;
 
   let eventDateTime = dateTimeToString(startDateTime, endDateTime, allDay);
+  let link = getEventLink(infoLink, slug);
 
   return (
-    <Link href={"/"} passHref>
+    <Link href={link} passHref>
       <motion.div
         className="relative flex flex-col md:flex-row hover:bg-dark-gray w-full h-60 md:h-40 mb-20 p-3 rounded-xl cursor-pointer transition duration-300 ease-in-out hover:shadow-xl"
         variants={animations.cardAnimation}
@@ -55,7 +57,7 @@ export default function EventMiniCard(props) {
             <Image
               src={thumbnail[0].original_secure_url}
               layout="fill"
-              sizes="384px"
+              sizes="(min-width: 768px) 384px,(min-width: 1024px) 640px,640px"
               objectFit="cover"
               objectPosition="center"
               alt=""
@@ -88,7 +90,7 @@ export default function EventMiniCard(props) {
           </div>
           <div className="h-max flex flex-row justify-between">
             <div className="w-min">
-              <Link href={"/"} passHref>
+              <Link href={link} passHref>
                 <motion.a
                   className="flex items-center justify-center py-1.5 px-4 rounded-full bg-transparent border border-krapinjon-orange hover:border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold cursor-pointer shadow-2xl transition duration-200 ease-in-out"
                   variants={animations.elementAnimation}

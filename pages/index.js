@@ -28,7 +28,7 @@ export async function getStaticProps() {
     content_type: "event",
     "fields.finished": "false",
     select:
-      "fields.name,fields.type,fields.location,fields.startDateTime,fields.endDateTime,fields.allDay,fields.infoLink,fields.thumbnail,fields.finished,sys.contentType",
+      "fields.name,fields.slug,fields.type,fields.location,fields.startDateTime,fields.endDateTime,fields.allDay,fields.infoLink,fields.thumbnail,fields.finished,sys.contentType",
     order: "fields.startDateTime",
   });
 

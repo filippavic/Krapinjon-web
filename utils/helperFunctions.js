@@ -48,3 +48,15 @@ export const getCloudinaryThumbLink = function (url) {
 
   return thumbLink;
 };
+
+/**
+ * Get the event info URL
+ * @param {string} link External info URL (if exists)
+ * @param {string} slug Unique event ID
+ * @returns Event info URL
+ */
+export const getEventLink = function (link, slug) {
+  if (link) return link;
+
+  return "/projekti/" + slug;
+};

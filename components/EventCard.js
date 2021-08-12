@@ -9,6 +9,7 @@ import { LocationMarkerIcon } from "@heroicons/react/outline";
 import {
   dateTimeToString,
   getCloudinaryThumbLink,
+  getEventLink,
 } from "../utils/helperFunctions";
 
 import animations from "../utils/landingAnimations";
@@ -20,6 +21,7 @@ export default function EventCard(props) {
 
   const {
     name,
+    slug,
     location,
     thumbnail,
     infoLink,
@@ -34,6 +36,9 @@ export default function EventCard(props) {
 
   // Date and time manipulation
   let eventDateTime = dateTimeToString(startDateTime, endDateTime, allDay);
+
+  // Info link
+  let link = getEventLink(infoLink, slug);
 
   // Animate card when its state changes
   useEffect(() => {
@@ -92,7 +97,7 @@ export default function EventCard(props) {
         </span>
       </motion.div>
 
-      <Link href={infoLink} prefetch={false} passHref>
+      <Link href={link} prefetch={false} passHref>
         <motion.a
           variants={animations.eventButtonAnimation}
           className="flex items-center justify-center py-2 px-5 rounded-full bg-transparent border border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold mt-5 cursor-pointer shadow-2xl transition duration-200 ease-in-out"
