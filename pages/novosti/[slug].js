@@ -8,6 +8,8 @@ import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 
+import { getCloudinaryThumbLink } from "../../utils/helperFunctions";
+
 import landscape from "../../public/images/krapinjon_landscape_bg.jpg";
 
 import animations from "../../utils/otherAnimations";
@@ -171,9 +173,7 @@ export default function NewsArticle({ article }) {
   const publishTime = dayjs(article.sys.createdAt).format("DD.MM.YYYY. HH:mm");
   const updateTime = dayjs(article.sys.updatedAt).format("DD.MM.YYYY. HH:mm");
 
-  let linkArr = thumbnail[0].original_secure_url.split("/");
-  linkArr.splice(-2, 0, "t_thumb");
-  let thumbLink = linkArr.join("/");
+  let thumbLink = getCloudinaryThumbLink(thumbnail[0].original_secure_url);
 
   const { scrollY } = useViewportScroll();
   const y1 = useTransform(scrollY, [0, 500], [1, 1.3]);

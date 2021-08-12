@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
-import dayjs from "dayjs";
 
 import { CalendarIcon } from "@heroicons/react/outline";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
+
+import {
+  dateTimeToString,
+  getCloudinaryThumbLink,
+} from "../utils/helperFunctions";
 
 import animations from "../utils/landingAnimations";
 import styles from "../styles/Home.module.css";
@@ -26,35 +30,10 @@ export default function EventCard(props) {
   } = props.event.fields;
 
   // Blurred thumbnail link
-  let linkArr = thumbnail[0].original_secure_url.split("/");
-  linkArr.splice(-2, 0, "t_thumb");
-  let thumbLink = linkArr.join("/");
+  let thumbLink = getCloudinaryThumbLink(thumbnail[0].original_secure_url);
 
   // Date and time manipulation
-  let eventDateTime;
-
-  if (allDay) {
-    eventDateTime = dayjs(startDateTime).format("DD.MM.YYYY.");
-
-    if (endDateTime) {
-      eventDateTime =
-        eventDateTime + " - " + dayjs(endDateTime).format("DD.MM.YYYY.");
-    }
-  } else {
-    eventDateTime = dayjs(startDateTime).format("DD.MM.YYYY., HH:mm");
-
-    if (endDateTime) {
-      if (eventDateTime.startsWith(dayjs(endDateTime).format("DD.MM.YYYY."))) {
-        eventDateTime =
-          eventDateTime + " - " + dayjs(endDateTime).format("HH:mm");
-      } else {
-        eventDateTime =
-          eventDateTime +
-          " - " +
-          dayjs(endDateTime).format("DD.MM.YYYY., HH:mm");
-      }
-    }
-  }
+  let eventDateTime = dateTimeToString(startDateTime, endDateTime, allDay);
 
   // Animate card when its state changes
   useEffect(() => {

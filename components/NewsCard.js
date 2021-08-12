@@ -3,15 +3,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
 
+import { getCloudinaryThumbLink } from "../utils/helperFunctions";
+
 import animations from "../utils/otherAnimations";
 
 export default function NewsCard(props) {
   const { title, slug, thumbnail, tags } = props.article.fields;
   const date = dayjs(props.article.sys.createdAt).format("DD.MM.YYYY.");
 
-  let linkArr = thumbnail[0].original_secure_url.split("/");
-  linkArr.splice(-2, 0, "t_thumb");
-  let thumbLink = linkArr.join("/");
+  let thumbLink = getCloudinaryThumbLink(thumbnail[0].original_secure_url);
 
   return (
     <Link href={"/novosti/" + slug} passHref>
