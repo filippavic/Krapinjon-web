@@ -7,4 +7,8 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  i18n: {
+    locales: ["hr"],
+    defaultLocale: "hr",
+  },
 };
