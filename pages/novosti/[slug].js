@@ -86,6 +86,12 @@ const Text = ({ children }) => (
   </motion.p>
 );
 
+const Quote = ({ children }) => (
+  <motion.blockquote className="py-5 px-5 align-center text-justify">
+    {children}
+  </motion.blockquote>
+);
+
 const options = {
   renderMark: {
     [MARKS.BOLD]: function BoldText(text) {
@@ -104,6 +110,9 @@ const options = {
     },
     [BLOCKS.HEADING_3]: function H3(node, children) {
       return <Heading3>{children}</Heading3>;
+    },
+    [BLOCKS.QUOTE]: function Q(node, children) {
+      return <Quote>{children}</Quote>;
     },
     [INLINES.HYPERLINK]: function Hyperlink({ data }, children) {
       return (

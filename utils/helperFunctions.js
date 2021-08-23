@@ -60,3 +60,21 @@ export const getEventLink = function (link, slug) {
 
   return "/projekti/" + slug;
 };
+
+export const groupBy = function (list, keyGetter) {
+  const map = new Map();
+  list.forEach((item) => {
+    const key = keyGetter(item);
+    const collection = map.get(key);
+    if (!collection) {
+      map.set(key, [item]);
+    } else {
+      collection.push(item);
+    }
+  });
+  let mapSorted = new Map(
+    [...map].sort((a, b) => String(a[0]).localeCompare(b[0]))
+  );
+  let mapArr = Array.from(mapSorted);
+  return mapArr;
+};

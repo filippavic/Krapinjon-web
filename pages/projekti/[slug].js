@@ -54,6 +54,12 @@ const Text = ({ children }) => (
   </motion.p>
 );
 
+const Quote = ({ children }) => (
+  <motion.blockquote className="py-5 px-5 align-center text-justify">
+    {children}
+  </motion.blockquote>
+);
+
 const options = {
   renderMark: {
     [MARKS.BOLD]: function BoldText(text) {
@@ -72,6 +78,9 @@ const options = {
     },
     [BLOCKS.HEADING_3]: function H3(node, children) {
       return <Heading3>{children}</Heading3>;
+    },
+    [BLOCKS.QUOTE]: function Q(node, children) {
+      return <Quote>{children}</Quote>;
     },
     [INLINES.HYPERLINK]: function Hyperlink({ data }, children) {
       return (
@@ -145,6 +154,7 @@ export default function EventInfo({ event }) {
     startDateTime,
     endDateTime,
     allDay,
+    documents,
   } = event.fields;
 
   let eventDateTime = dateTimeToString(startDateTime, endDateTime, allDay);
@@ -162,7 +172,12 @@ export default function EventInfo({ event }) {
       }}
     >
       <Head>
-        <title>{name + " | Krapinjon - udruga mladih iz Krapine"}</title>
+        <title>
+          {name +
+            " (" +
+            eventDateTime +
+            ") | Krapinjon - udruga mladih iz Krapine"}
+        </title>
 
         <meta name="description" content="Udruga Krapinjon..." />
         <meta name="copyright" content="Filip Pavić/Udruga Krapinjon" />
@@ -180,7 +195,12 @@ export default function EventInfo({ event }) {
         />
         <meta
           property="og:title"
-          content={name + " | Krapinjon - udruga mladih iz Krapine"}
+          content={
+            name +
+            " (" +
+            eventDateTime +
+            ") | Krapinjon - udruga mladih iz Krapine"
+          }
         />
         <meta property="og:description" content="Udruga Krapinjon..." />
         <meta property="og:image" content={thumbnail[0].original_secure_url} />
@@ -193,7 +213,12 @@ export default function EventInfo({ event }) {
         />
         <meta
           name="twitter:title"
-          content={name + " | Krapinjon - udruga mladih iz Krapine"}
+          content={
+            name +
+            " (" +
+            eventDateTime +
+            ") | Krapinjon - udruga mladih iz Krapine"
+          }
         />
         <meta name="twitter:description" content="Udruga Krapinjon..." />
         <meta name="twitter:image" content={thumbnail[0].original_secure_url} />
@@ -322,6 +347,41 @@ export default function EventInfo({ event }) {
               {documentToReactComponents(information, options)}
             </motion.div>
           </div>
+        )}
+        {documents !== undefined ? (
+          <motion.div
+            className="p-7"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 1,
+                ease: [0.6, 0.01, -0.05, 0.9],
+              },
+            }}
+          >
+            <span className="text-gray-400 font-semibold">Prilozi</span>
+            <div className="mt-5">
+              {documents.map((document, index) => {
+                return (
+                  <a
+                    className="text-krapinjon-orange font-semibold"
+                    href={"https:" + document.fields.file.url}
+                    key={index}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {`${document.fields.title} (.${document.fields.file.fileName
+                      .split(".")
+                      .pop()})`}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : (
+          <></>
         )}
       </motion.div>
     </motion.div>
