@@ -1,29 +1,14 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { motion, useViewportScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { createClient } from "contentful";
-import dayjs from "dayjs";
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
-import {
-  getCloudinaryThumbLink,
-  dateTimeToString,
-} from "../../utils/helperFunctions";
+import landscape from "../public/images/krapinjon_landscape_bg.jpg";
 
-import { CalendarIcon } from "@heroicons/react/outline";
-import { LocationMarkerIcon } from "@heroicons/react/outline";
-
-import landscape from "../../public/images/krapinjon_landscape_bg.jpg";
-
-import animations from "../../utils/otherAnimations";
-
-// Contentful client
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-});
+import animations from "../utils/otherAnimations";
 
 // Rich text component customization
 const Heading1 = ({ children }) => (
@@ -110,58 +95,30 @@ const options = {
   },
 };
 
-export async function getStaticPaths() {
-  const res = await client.getEntries({ content_type: "event" });
+export async function getStaticProps() {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  });
 
-  const paths = res.items.map((item) => {
-    return {
-      params: { slug: item.fields.slug },
-    };
+  const res = await client.getEntries({
+    content_type: "about",
+    select:
+      "fields.information,fields.documents,fields.financialReports,fields.reports,fields.sponsors,sys.contentType",
+    limit: 1,
   });
 
   return {
-    paths,
-    fallback: "blocking",
+    props: {
+      info: res.items[0],
+    },
   };
 }
 
-export async function getStaticProps({ params }) {
-  const { items } = await client.getEntries({
-    content_type: "event",
-    "fields.slug": params.slug,
-  });
-
-  if (!items[0]) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: { event: items[0] },
-  };
-}
-
-export default function EventInfo({ event }) {
-  // Event data
-  const {
-    name,
-    slug,
-    thumbnail,
-    type,
-    location,
-    information,
-    startDateTime,
-    endDateTime,
-    allDay,
-    documents,
-  } = event.fields;
-
-  let eventDateTime = dateTimeToString(startDateTime, endDateTime, allDay);
-  let thumbLink = getCloudinaryThumbLink(thumbnail[0].original_secure_url);
-
-  const { scrollY } = useViewportScroll();
-  const y1 = useTransform(scrollY, [0, 500], [1, 1.3]);
+export default function Informacije({ info }) {
+  // Info page data
+  const { information, documents, financialReports, reports, sponsors } =
+    info.fields;
 
   return (
     <motion.div
@@ -172,12 +129,7 @@ export default function EventInfo({ event }) {
       }}
     >
       <Head>
-        <title>
-          {name +
-            " (" +
-            eventDateTime +
-            ") | Krapinjon - udruga mladih iz Krapine"}
-        </title>
+        <title>Informacije | Krapinjon - udruga mladih iz Krapine</title>
 
         <meta name="description" content="Udruga Krapinjon..." />
         <meta name="copyright" content="Filip Pavić/Udruga Krapinjon" />
@@ -189,33 +141,29 @@ export default function EventInfo({ event }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.MAIN_URL + "/" + slug} />
+        <meta
+          property="og:url"
+          content={process.env.MAIN_URL + "/informacije"}
+        />
         <meta
           property="og:title"
-          content={
-            name +
-            " (" +
-            eventDateTime +
-            ") | Krapinjon - udruga mladih iz Krapine"
-          }
+          content="Informacije | Krapinjon - udruga mladih iz Krapine"
         />
         <meta property="og:description" content="Udruga Krapinjon..." />
-        <meta property="og:image" content={thumbnail[0].original_secure_url} />
+        {/* <meta property="og:image" content={thumbnail[0].original_secure_url} /> */}
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={process.env.MAIN_URL + "/" + slug} />
+        <meta
+          name="twitter:url"
+          content={process.env.MAIN_URL + "/informacije"}
+        />
         <meta
           name="twitter:title"
-          content={
-            name +
-            " (" +
-            eventDateTime +
-            ") | Krapinjon - udruga mladih iz Krapine"
-          }
+          content="Informacije | Krapinjon - udruga mladih iz Krapine"
         />
         <meta name="twitter:description" content="Udruga Krapinjon..." />
-        <meta name="twitter:image" content={thumbnail[0].original_secure_url} />
+        {/* <meta name="twitter:image" content={thumbnail[0].original_secure_url} /> */}
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -228,7 +176,7 @@ export default function EventInfo({ event }) {
             initial="initial"
             animate="animate"
           >
-            Projekti
+            Informacije
           </motion.h1>
 
           <motion.div
@@ -256,92 +204,22 @@ export default function EventInfo({ event }) {
         initial="start"
         animate="finish"
       >
-        <motion.div className="flex relative justify-center w-full h-96 overflow-hidden rounded-t-xl">
-          <div className="absolute z-50 h-full w-1/2 flex flex-col justify-center items-center">
-            <motion.span
-              className="text-xs uppercase font-extrabold text-krapinjon-orange"
-              variants={animations.elementAnimation}
-            >
-              {type}
-            </motion.span>
-            <motion.h1
-              className="flex self-center justify-center text-4xl font-bold text-center"
-              initial={{ opacity: 0, y: 15, scale: 1.1 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: {
-                  duration: 1,
-                  ease: [0.6, 0.01, -0.05, 0.9],
-                },
-              }}
-            >
-              {name}
-            </motion.h1>
-          </div>
-
-          <div className="absolute z-20 w-full h-full bg-black bg-opacity-60"></div>
-
+        <div className="justify-items-center p-7">
           <motion.div
-            className="w-full h-full"
-            initial={{ scale: 1.2 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{
-              scale: 1,
-              transition: { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] },
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 1,
+                ease: [0.6, 0.01, -0.05, 0.9],
+              },
             }}
-            style={{ scale: y1 }}
           >
-            <Image
-              src={thumbnail[0].original_secure_url}
-              blurDataURL={thumbLink}
-              placeholder="blur"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              alt=""
-              quality="70"
-            />
-          </motion.div>
-        </motion.div>
-        <div className="flex flex-col md:flex-row w-full h-auto justify-evenly content-center items-center p-7">
-          <motion.div
-            variants={animations.elementAnimation}
-            className="inline-flex items-center"
-          >
-            <CalendarIcon className="h-3 w-3 sm:h-5 sm:w-5 text-black mr-1" />
-            <span className="text-black text-xs sm:text-sm md:text-base font-semibold">
-              {eventDateTime}
-            </span>
-          </motion.div>
-
-          <motion.div
-            variants={animations.elementAnimation}
-            className="inline-flex items-center mt-2 md:mt-0"
-          >
-            <LocationMarkerIcon className="h-3 w-3 sm:h-5 sm:w-5 text-black mr-1" />
-            <span className="text-black text-xs sm:text-sm md:text-base font-semibold">
-              {location}
-            </span>
+            {documentToReactComponents(information, options)}
           </motion.div>
         </div>
-        {information && (
-          <div className="justify-items-center p-7">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 1,
-                  ease: [0.6, 0.01, -0.05, 0.9],
-                },
-              }}
-            >
-              {documentToReactComponents(information, options)}
-            </motion.div>
-          </div>
-        )}
+
         {documents !== undefined ? (
           <motion.div
             className="p-7"
@@ -355,7 +233,7 @@ export default function EventInfo({ event }) {
               },
             }}
           >
-            <span className="text-gray-400 font-semibold">Prilozi</span>
+            <span className="text-gray-400 font-semibold">Dokumenti</span>
             <div className="mt-5">
               {documents.map((document, index) => {
                 return (
@@ -370,6 +248,120 @@ export default function EventInfo({ event }) {
                       .split(".")
                       .pop()})`}
                   </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : (
+          <></>
+        )}
+
+        {financialReports !== undefined ? (
+          <motion.div
+            className="p-7"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 1,
+                ease: [0.6, 0.01, -0.05, 0.9],
+              },
+            }}
+          >
+            <span className="text-gray-400 font-semibold">
+              Financijska izvješća
+            </span>
+            <div className="mt-5">
+              {financialReports.map((document, index) => {
+                return (
+                  <a
+                    className="text-krapinjon-orange font-semibold"
+                    href={"https:" + document.fields.file.url}
+                    key={index}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {`${document.fields.title} (.${document.fields.file.fileName
+                      .split(".")
+                      .pop()})`}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : (
+          <></>
+        )}
+
+        {reports !== undefined ? (
+          <motion.div
+            className="p-7"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 1,
+                ease: [0.6, 0.01, -0.05, 0.9],
+              },
+            }}
+          >
+            <span className="text-gray-400 font-semibold">Izvješća</span>
+            <div className="mt-5">
+              {reports.map((document, index) => {
+                return (
+                  <a
+                    className="text-krapinjon-orange font-semibold"
+                    href={"https:" + document.fields.file.url}
+                    key={index}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {`${document.fields.title} (.${document.fields.file.fileName
+                      .split(".")
+                      .pop()})`}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : (
+          <></>
+        )}
+
+        {sponsors !== undefined ? (
+          <motion.div
+            className="p-7"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 1,
+                ease: [0.6, 0.01, -0.05, 0.9],
+              },
+            }}
+          >
+            <span className="text-gray-400 font-semibold">Podržavatelji</span>
+
+            <div className="grid grid-cols-repeat gap-4 mt-5">
+              {sponsors.map((image, index) => {
+                return (
+                  <div
+                    className="relative max-w-sm h-32 w-full rounded-lg"
+                    key={index}
+                  >
+                    <Image
+                      src={image.original_secure_url}
+                      layout="fill"
+                      sizes="384px"
+                      objectFit="contain"
+                      objectPosition="center"
+                      alt=""
+                      className="rounded-lg"
+                    />
+                  </div>
                 );
               })}
             </div>

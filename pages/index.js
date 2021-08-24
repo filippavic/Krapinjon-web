@@ -109,7 +109,7 @@ export default function Home({ events }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://krapinjon.hr" />
+        <meta property="og:url" content={process.env.MAIN_URL} />
         <meta
           property="og:title"
           content="Krapinjon - udruga mladih iz Krapine"
@@ -119,7 +119,7 @@ export default function Home({ events }) {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://krapinjon.hr" />
+        <meta name="twitter:url" content={process.env.MAIN_URL} />
         <meta
           name="twitter:title"
           content="Krapinjon - udruga mladih iz Krapine"

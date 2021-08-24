@@ -212,10 +212,7 @@ export default function NewsArticle({ article }) {
 
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
-          <meta
-            property="og:url"
-            content={"https://krapinjon.hr/novosti/" + slug}
-          />
+          <meta property="og:url" content={process.env.MAIN_URL + "/" + slug} />
           <meta
             property="og:title"
             content={title + " | Krapinjon - udruga mladih iz Krapine"}
@@ -230,7 +227,7 @@ export default function NewsArticle({ article }) {
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:url"
-            content={"https://krapinjon.hr/novosti/" + slug}
+            content={process.env.MAIN_URL + "/" + slug}
           />
           <meta
             name="twitter:title"

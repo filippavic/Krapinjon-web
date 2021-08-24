@@ -61,6 +61,12 @@ export const getEventLink = function (link, slug) {
   return "/projekti/" + slug;
 };
 
+/**
+ * Groups a given list by a certain parameter
+ * @param {*} list List of elements to group
+ * @param {*} keyGetter Grouping function
+ * @returns Array of grouped elements
+ */
 export const groupBy = function (list, keyGetter) {
   const map = new Map();
   list.forEach((item) => {
@@ -72,9 +78,12 @@ export const groupBy = function (list, keyGetter) {
       collection.push(item);
     }
   });
+
   let mapSorted = new Map(
     [...map].sort((a, b) => String(a[0]).localeCompare(b[0]))
   );
+
   let mapArr = Array.from(mapSorted);
+
   return mapArr;
 };

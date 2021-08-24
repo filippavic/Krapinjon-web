@@ -82,7 +82,7 @@ export default function Projekti({ projects, upcomingEvents, pastEvents }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://krapinjon.hr/projekti" />
+        <meta property="og:url" content={process.env.MAIN_URL + "/projekti"} />
         <meta
           property="og:title"
           content="Projekti | Krapinjon - udruga mladih iz Krapine"
@@ -92,7 +92,7 @@ export default function Projekti({ projects, upcomingEvents, pastEvents }) {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://krapinjon.hr/projekti" />
+        <meta name="twitter:url" content={process.env.MAIN_URL + "/projekti"} />
         <meta
           name="twitter:title"
           content="Projekti | Krapinjon - udruga mladih iz Krapine"
