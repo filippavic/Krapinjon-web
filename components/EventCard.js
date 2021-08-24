@@ -82,7 +82,7 @@ export default function EventCard(props) {
         className="inline-flex items-center mt-5"
       >
         <CalendarIcon className="h-3 w-3 sm:h-5 sm:w-5 text-white mr-1" />
-        <span className="text-xs sm:text-base md:text-lg font-semibold">
+        <span className="text-xs sm:text-base md:text-lg font-semibold w-max">
           {eventDateTime}
         </span>
       </motion.div>
@@ -92,7 +92,7 @@ export default function EventCard(props) {
         className="inline-flex items-center mt-2"
       >
         <LocationMarkerIcon className="h-3 w-3 sm:h-5 sm:w-5 text-white mr-1" />
-        <span className="text-xs sm:text-base md:text-lg font-semibold">
+        <span className="text-xs sm:text-base md:text-lg font-semibold w-max">
           {location}
         </span>
       </motion.div>

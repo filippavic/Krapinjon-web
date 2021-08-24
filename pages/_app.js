@@ -1,12 +1,10 @@
 import Layout from "../components/layout";
 import { AnimatePresence } from "framer-motion";
-// import SimpleReactLightbox from "simple-react-lightbox";
 
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps, router }) {
   return (
-    // <SimpleReactLightbox>
     <Layout>
       <AnimatePresence
         exitBeforeEnter
@@ -19,7 +17,6 @@ function MyApp({ Component, pageProps, router }) {
         <Component {...pageProps} key={router.route} />
       </AnimatePresence>
     </Layout>
-    // </SimpleReactLightbox>
   );
 }
 

@@ -18,6 +18,9 @@ module.exports = {
       gridTemplateColumns: {
         repeat: "repeat(auto-fill, minmax(12rem, 1fr))",
       },
+      zIndex: {
+        75: 75,
+      },
     },
   },
   variants: {

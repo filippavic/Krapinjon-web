@@ -1,6 +1,6 @@
 .header {
-  height: 80px;
-  width: 90%;
+  height: 100px;
+  width: 100%;
   position: fixed;
   top: 0px;
   z-index: 100;
@@ -8,9 +8,17 @@
   margin-right: auto;
   left: 0;
   right: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  display: flex;
+  justify-content: center;
 }
 
 .inner-header {
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,13 +32,21 @@
 .logo {
   cursor: pointer;
   width: 70px;
-  filter: saturate(0);
-  transition: filter 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
+  fill: white;
 }
 
-.logo:hover {
-  filter: saturate(1);
-  transition: filter 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
+.logo a {
+  fill: white;
+}
+
+.logo .logo-flame {
+  fill: white;
+  transition: fill 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
+}
+
+.logo:hover .logo-flame {
+  fill: #fc8a17;
+  transition: fill 0.3s cubic-bezier(0.145, 0.045, 0.155, 1);
 }
 
 .header-links {
