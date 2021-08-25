@@ -8,8 +8,6 @@ import MobileMenu from "./MobileMenu";
 
 import ChevronUpIcon from "@heroicons/react/solid/ChevronUpIcon";
 
-import krapinjonLogo from "../public/images/Krapinjon_logo.png";
-
 import animations from "../utils/layoutAnimations";
 import styles from "../styles/Layout.module.css";
 
@@ -56,7 +54,7 @@ export default function Layout({ children }) {
           >
             <motion.div className={styles["logo"]}>
               <Link href="/" prefetch={false} passHref={true}>
-                <a>
+                <a aria-label="Krapinjon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 663.62 342.73"
@@ -120,19 +118,6 @@ export default function Layout({ children }) {
               {state.menuName}
             </motion.a>
           </motion.div>
-
-          {/* <motion.div
-            className={styles["header-menu"]}
-            variants={animations.headerChildAnimation}
-          >
-            <motion.a
-              onClick={openCloseMenu}
-              className={styles["header-link"]}
-              variants={animations.headerChildAnimation}
-            >
-              {state.menuName}
-            </motion.a>
-          </motion.div> */}
         </motion.div>
       </header>
 
@@ -150,9 +135,12 @@ export default function Layout({ children }) {
               <Link href="/" prefetch={false}>
                 <a>
                   <Image
-                    src={krapinjonLogo}
+                    src="/images/Krapinjon_logo.png"
                     layout="responsive"
                     alt="Krapinjon"
+                    width={1383}
+                    height={715}
+                    sizes="384px"
                   />
                 </a>
               </Link>

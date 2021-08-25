@@ -454,7 +454,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: 650px;
   width: 90%;
   align-self: center;
 }
@@ -503,9 +503,14 @@
 }
 
 @media (max-width: 768px) {
+  .event-content {
+    margin-bottom: 50px;
+  }
+
   .event-carousel {
     margin-top: 20px;
     justify-content: space-evenly;
+    height: 550px;
   }
 
   .event-carousel-main {
