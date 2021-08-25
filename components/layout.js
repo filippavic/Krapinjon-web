@@ -6,6 +6,8 @@ import dayjs from "dayjs";
 
 import MobileMenu from "./MobileMenu";
 
+import logo from "../public/images/krapinjon_logo.png";
+
 import ChevronUpIcon from "@heroicons/react/solid/ChevronUpIcon";
 
 import animations from "../utils/layoutAnimations";
@@ -135,11 +137,9 @@ export default function Layout({ children }) {
               <Link href="/" prefetch={false}>
                 <a>
                   <Image
-                    src="/images/Krapinjon_logo.png"
+                    src={logo}
                     layout="responsive"
                     alt="Krapinjon"
-                    width={1383}
-                    height={715}
                     sizes="384px"
                   />
                 </a>
