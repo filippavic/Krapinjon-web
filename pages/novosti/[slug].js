@@ -320,9 +320,9 @@ export default function NewsArticle({ article }) {
               />
             </motion.div>
           </motion.div>
-          <div className="flex flex-row w-full h-auto justify-between p-7">
+          <div className="flex flex-row w-full h-auto justify-between items-center p-7">
             <motion.span
-              className="text-xs md:text-sm lg:text-base font-bold text-black leading-none"
+              className="text-xs md:text-sm lg:text-base font-bold text-black"
               initial={{ opacity: 0, y: 10 }}
               animate={{
                 opacity: 1,

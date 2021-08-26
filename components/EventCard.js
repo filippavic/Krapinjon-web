@@ -13,7 +13,6 @@ import {
 } from "../utils/helperFunctions";
 
 import animations from "../utils/landingAnimations";
-import styles from "../styles/Home.module.css";
 
 export default function EventCard(props) {
   // Animation variable
@@ -47,13 +46,13 @@ export default function EventCard(props) {
 
   return (
     <motion.div
-      className={styles["event-container"]}
+      className="relative flex flex-col items-center"
       variants={animations.eventAnimation}
       animate={anim}
       initial={props.initial}
     >
-      <div className={styles["event-card"]}>
-        <div className={styles["event-card-title-container"]}>
+      <div className="w-s-9/20 md:w-s-1/2 max-w-xl h-80 md:h-100 rounded-2xl overflow-hidden">
+        <div className="absolute w-s-9/20 md:w-s-1/2 max-w-xl h-80 md:h-100 flex items-center justify-center z-10 bg-black bg-opacity-50">
           <motion.h2
             variants={animations.eventDetailsAnimation}
             className="text-lg md:text-2xl lg:text-4xl font-extrabold text-center ml-3 mr-3"
@@ -62,7 +61,7 @@ export default function EventCard(props) {
           </motion.h2>
         </div>
 
-        <div className={styles["event-image-container"]}>
+        <div className="w-full h-full relative">
           <Image
             src={thumbnail[0].original_secure_url}
             placeholder="blur"
@@ -71,7 +70,7 @@ export default function EventCard(props) {
             objectFit="cover"
             objectPosition="center"
             alt=""
-            className={styles["event-image"]}
+            className="rounded-2xl overflow-hidden"
             sizes="(max-width: 512px) 256px,(max-width: 768px) 384px,640px"
           />
         </div>
