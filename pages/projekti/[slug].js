@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 import { createClient } from "contentful";
-import dayjs from "dayjs";
-import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 import {
@@ -12,103 +10,21 @@ import {
   dateTimeToString,
 } from "../../utils/helperFunctions";
 
-import { CalendarIcon } from "@heroicons/react/outline";
-import { LocationMarkerIcon } from "@heroicons/react/outline";
+import CalendarIcon from "@heroicons/react/outline/CalendarIcon";
+import LocationMarkerIcon from "@heroicons/react/outline/LocationMarkerIcon";
+import CurrencyEuroIcon from "@heroicons/react/outline/CurrencyEuroIcon";
+import InformationCircleIcon from "@heroicons/react/outline/InformationCircleIcon";
 
 import landscape from "../../public/images/krapinjon_landscape_bg.jpg";
 
 import animations from "../../utils/otherAnimations";
+import textRenderOptions from "../../utils/textRenderOptions";
 
 // Contentful client
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
 });
-
-// Rich text component customization
-const Heading1 = ({ children }) => (
-  <motion.h1 className="font-bold text-krapinjon-orange text-lg">
-    {children}
-  </motion.h1>
-);
-
-const Heading2 = ({ children }) => (
-  <motion.h2 className="font-bold text-krapinjon-orange text-base">
-    {children}
-  </motion.h2>
-);
-
-const Heading3 = ({ children }) => (
-  <motion.h3 className="font-semibold text-krapinjon-orange text-sm">
-    {children}
-  </motion.h3>
-);
-
-const Bold = ({ children }) => (
-  <span className="font-semibold text-krapinjon-orange">{children}</span>
-);
-
-const Text = ({ children }) => (
-  <motion.p className="align-center text-justify text-black py-3 font-normal">
-    {children}
-  </motion.p>
-);
-
-const Quote = ({ children }) => (
-  <motion.blockquote className="py-5 px-5 align-center text-justify">
-    {children}
-  </motion.blockquote>
-);
-
-const options = {
-  renderMark: {
-    [MARKS.BOLD]: function BoldText(text) {
-      return <Bold>{text}</Bold>;
-    },
-  },
-  renderNode: {
-    [BLOCKS.PARAGRAPH]: function Paragraph(node, children) {
-      return <Text>{children}</Text>;
-    },
-    [BLOCKS.HEADING_1]: function H1(node, children) {
-      return <Heading1>{children}</Heading1>;
-    },
-    [BLOCKS.HEADING_2]: function H2(node, children) {
-      return <Heading2>{children}</Heading2>;
-    },
-    [BLOCKS.HEADING_3]: function H3(node, children) {
-      return <Heading3>{children}</Heading3>;
-    },
-    [BLOCKS.QUOTE]: function Q(node, children) {
-      return <Quote>{children}</Quote>;
-    },
-    [INLINES.HYPERLINK]: function Hyperlink({ data }, children) {
-      return (
-        <a
-          className="text-krapinjon-orange underline"
-          href={data.uri}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {children}
-        </a>
-      );
-    },
-    [BLOCKS.UL_LIST]: function UlList(node, children) {
-      return <ul className="list-disc list-outside pl-12">{children}</ul>;
-    },
-    [BLOCKS.OL_LIST]: function OlList(node, children) {
-      return <ul className="list-decimal list-outside pl-12">{children}</ul>;
-    },
-    [BLOCKS.LIST_ITEM]: function ListItem(node, children) {
-      return (
-        <li className="list-item text-krapinjon-orange leading-none">
-          {children}
-        </li>
-      );
-    },
-  },
-};
 
 export async function getStaticPaths() {
   const res = await client.getEntries({ content_type: "event" });
@@ -150,10 +66,12 @@ export default function EventInfo({ event }) {
     thumbnail,
     type,
     location,
+    locationForMaps,
     information,
     startDateTime,
     endDateTime,
     allDay,
+    price,
     documents,
   } = event.fields;
 
@@ -162,6 +80,14 @@ export default function EventInfo({ event }) {
 
   const { scrollY } = useViewportScroll();
   const y1 = useTransform(scrollY, [0, 500], [1, 1.3]);
+
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
+  const toggleMap = () => {
+    setIsMapOpen(!isMapOpen);
+  };
+
+  let mapsLocation = locationForMaps ? locationForMaps : location;
 
   return (
     <motion.div
@@ -304,6 +230,7 @@ export default function EventInfo({ event }) {
             />
           </motion.div>
         </motion.div>
+
         <div className="flex flex-col md:flex-row w-full h-auto justify-evenly content-center items-center p-7">
           <motion.div
             variants={animations.elementAnimation}
@@ -323,8 +250,38 @@ export default function EventInfo({ event }) {
             <span className="text-black text-xs sm:text-sm md:text-base font-semibold">
               {location}
             </span>
+            <InformationCircleIcon
+              className="h-4 w-4 text-light-gray ml-1 cursor-pointer hover:text-krapinjon-orange transition-colors ease-easeAlt2 duration-300"
+              onClick={toggleMap}
+            />
+          </motion.div>
+
+          <motion.div
+            variants={animations.elementAnimation}
+            className="inline-flex items-center mt-2 md:mt-0"
+          >
+            <CurrencyEuroIcon className="h-3 w-3 sm:h-5 sm:w-5 text-black mr-1" />
+            <span className="text-black text-xs sm:text-sm md:text-base font-semibold">
+              {price}
+            </span>
           </motion.div>
         </div>
+
+        {isMapOpen && (
+          <div className="w-full h-72 bg-white">
+            <iframe
+              className="w-full h-full"
+              loading="lazy"
+              src={
+                "https://www.google.com/maps/embed/v1/place?key=" +
+                process.env.NEXT_PUBLIC_MAPS_API_KEY +
+                "&q=" +
+                mapsLocation
+              }
+            />
+          </div>
+        )}
+
         {information && (
           <div className="justify-items-center p-7">
             <motion.div
@@ -338,7 +295,7 @@ export default function EventInfo({ event }) {
                 },
               }}
             >
-              {documentToReactComponents(information, options)}
+              {documentToReactComponents(information, textRenderOptions)}
             </motion.div>
           </div>
         )}

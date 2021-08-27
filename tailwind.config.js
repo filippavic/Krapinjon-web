@@ -14,6 +14,7 @@ module.exports = {
         "krapinjon-orange": "#FC8A17",
         "dark-gray": "#1C1C1C",
         "medium-gray": "#454545",
+        "light-gray": "#858585",
       },
       gridTemplateColumns: {
         repeat: "repeat(auto-fill, minmax(12rem, 1fr))",

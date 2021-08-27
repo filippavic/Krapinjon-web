@@ -53,12 +53,26 @@ export const getCloudinaryThumbLink = function (url) {
  * Get the event info URL
  * @param {string} link External info URL (if exists)
  * @param {string} slug Unique event ID
- * @returns Event info URL
+ * @returns An object containing the event info URL and a flag marking whether the page is external
  */
 export const getEventLink = function (link, slug) {
-  if (link) return link;
+  if (link) return { url: link, external: true };
 
-  return "/projekti/" + slug;
+  return { url: "/projekti/" + slug, external: false };
+};
+
+/**
+ * Get the project page URL
+ * @param {string} link External project URL (if exists)
+ * @param {string} slug Unique project ID
+ * @returns An object containing the project page URL and a flag marking whether the page is external
+ */
+export const getProjectLink = function (link, slug) {
+  if (!link && !slug) return;
+
+  if (link) return { url: link, external: true };
+
+  return { url: "/" + slug, external: false };
 };
 
 /**
