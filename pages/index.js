@@ -6,6 +6,7 @@ import { InView } from "react-intersection-observer";
 import { useWindowWidth } from "@react-hook/window-size";
 import { createClient } from "contentful";
 
+import { Switch } from "@headlessui/react";
 import ReactCardCarousel from "react-card-carousel";
 import EventCard from "../components/EventCard";
 import ChevronLeftIcon from "@heroicons/react/solid/ChevronLeftIcon";
@@ -90,7 +91,7 @@ export default function Home({ events }) {
 
   return (
     <motion.div
-      className={styles.container}
+      className="min-h-screen flex flex-col justify-center items-center"
       exit={{
         opacity: 0,
         transition: { duration: 0.8, ease: [0.6, 0.01, -0.05, 0.9] },
@@ -130,10 +131,10 @@ export default function Home({ events }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.main}>
-        <motion.div className={styles["landing-content"]}>
+      <div className="w-full h-screen flex justify-center items-center">
+        <motion.div className="w-full h-full absolute flex justify-center items-center z-20">
           <motion.h1
-            className={styles.title}
+            className="font-display text-6xl text-center"
             variants={animations.sentenceAnimation}
             initial="initial"
             animate="animate"
@@ -153,7 +154,7 @@ export default function Home({ events }) {
         </motion.div>
 
         <motion.div
-          className={styles["landing-animation"]}
+          className="z-40"
           variants={animations.contentAnimation}
           initial="initial"
           animate="animate"
@@ -216,34 +217,33 @@ export default function Home({ events }) {
         </motion.div>
 
         <motion.div
-          className={styles["switch-container"]}
+          className="absolute bottom-8 z-50"
           variants={animations.backgroundAnimation}
           initial="initial"
           animate="animate"
         >
-          <div
-            onClick={toggleSwitch}
-            className={classNames(
-              styles["switch"],
-              isSwitched && styles["switched"]
-            )}
+          <Switch
+            checked={isSwitched}
+            onChange={toggleSwitch}
+            className={`${isSwitched ? "bg-krapinjon-orange" : "bg-transparent"}
+            z-75 relative inline-block h-6 w-16 rounded-full cursor-pointer border-2 border-medium-gray`}
           >
-            <div
-              className={classNames(
-                styles["switch-circle"],
-                isSwitched && styles["switched-circle"]
-              )}
-            ></div>
-          </div>
+            <span className="sr-only">Zapali vatru</span>
+            <span
+              aria-hidden="true"
+              className={`${isSwitched ? "translate-x-5" : "-translate-x-5"}
+                pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-lg transform ring-0 transition ease-easeAlt duration-500`}
+            />
+          </Switch>
         </motion.div>
 
         <motion.div
-          className={styles["landing-background"]}
+          className="w-full h-full overflow-x-hidden"
           variants={animations.backgroundAnimation}
           initial="initial"
           animate="animate"
         >
-          <motion.div className={styles["cave"]}>
+          <motion.div>
             <Image
               src={cave}
               layout="fill"
@@ -256,12 +256,12 @@ export default function Home({ events }) {
         </motion.div>
       </div>
 
-      <motion.div className={styles["about-content"]}>
+      <motion.div className="w-full flex flex-col items-center mt-20">
         <InView threshold={0.75}>
           {({ ref, inView }) => (
             <motion.h1
               ref={ref}
-              className={styles["about-title"]}
+              className="font-display text-6xl text-krapinjon-orange text-center w-min"
               variants={animations.elementAnimation}
               initial="initial"
               animate={inView ? "animate" : "initial"}
@@ -275,7 +275,7 @@ export default function Home({ events }) {
           {({ ref, inView }) => (
             <motion.p
               ref={ref}
-              className={styles["about-text"]}
+              className="w-1/2 font-normal text-base text-white text-center mt-12"
               variants={animations.elementAnimation}
               initial="initial"
               animate={inView ? "animate" : "initial"}
@@ -289,12 +289,12 @@ export default function Home({ events }) {
         </InView>
       </motion.div>
 
-      <motion.div className={styles["event-content"]}>
+      <motion.div className="w-full flex flex-col mt-36 mb-12 md:mb-36 content-center items-center">
         <InView threshold={0.75}>
           {({ ref, inView }) => (
             <motion.h1
               ref={ref}
-              className={styles["about-title"]}
+              className="font-display text-6xl text-krapinjon-orange text-center w-min"
               variants={animations.elementAnimation}
               initial="initial"
               animate={inView ? "animate" : "initial"}
@@ -304,11 +304,11 @@ export default function Home({ events }) {
           )}
         </InView>
 
-        {events.length == 0 && (
+        {events && events.length == 0 && (
           <InView threshold={0.3}>
             {({ ref, inView }) => (
               <motion.h2
-                className={styles["event-empty-title"]}
+                className="font-normal text-base text-white text-center mt-12"
                 ref={ref}
                 variants={animations.elementAnimation}
                 initial="initial"
@@ -320,11 +320,11 @@ export default function Home({ events }) {
           </InView>
         )}
 
-        {events.length !== 0 && (
+        {events && events.length !== 0 && (
           <InView threshold={0.3}>
             {({ ref, inView }) => (
               <motion.div
-                className={styles["event-carousel"]}
+                className="flex relative h-110 md:h-120 mt-5 md:mt-24 w-11/12 items-center justify-between max-w-6xl"
                 ref={ref}
                 variants={animations.elementAnimation}
                 initial="initial"
@@ -340,7 +340,7 @@ export default function Home({ events }) {
                   </motion.div>
                 )}
 
-                <div className={styles["event-carousel-main"]}>
+                <div className="relative h-full w-3/5 md:w-5/6 clear-both">
                   <ReactCardCarousel
                     autoplay={false}
                     autoplay_speed={5000}

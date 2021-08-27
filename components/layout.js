@@ -11,7 +11,6 @@ import logo from "../public/images/krapinjon_logo.png";
 import ChevronUpIcon from "@heroicons/react/solid/ChevronUpIcon";
 
 import animations from "../utils/layoutAnimations";
-import styles from "../styles/Layout.module.css";
 
 export default function Layout({ children }) {
   // Header menu
@@ -43,20 +42,20 @@ export default function Layout({ children }) {
 
   return (
     <div>
-      <header className={styles.header}>
+      <header className="h-24 w-full fixed top-0 z-100 flex justify-center bg-gradient-to-b from-black to-transparent">
         <motion.div
-          className={styles["inner-header"]}
+          className="w-11/12 flex items-center justify-between h-20 px-2"
           variants={animations.headerMainAnimation}
           initial="initial"
           animate="animate"
         >
           <motion.div
-            className={styles["header-logo"]}
+            className="flex-1"
             variants={animations.headerChildAnimation}
           >
-            <motion.div className={styles["logo"]}>
+            <motion.div className="group w-16 cursor-pointer">
               <Link href="/" prefetch={false} passHref={true}>
-                <a aria-label="Krapinjon">
+                <a aria-label="Krapinjon" className="fill-current text-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 663.62 342.73"
@@ -73,7 +72,7 @@ export default function Layout({ children }) {
                     <path d="M573.49,231.35c17.11,13.12,10.71,47.34,10.71,66,0,8.63,1.28,19-3,27-9.59,18.07-36.3,21.11-51.81,9.12-17.11-13.11-10.72-47.34-10.72-66.05,0-8.79-1.11-18.87,3-26.86,9.44-18.39,36.3-21.27,51.82-9.28C576.68,233.75,570.45,229,573.49,231.35Zm-31.67,22.39v16.79c0,12.16-3.2,29.11,0,40.78,0,11.51,19.19,11.35,19.19-.16V253.42C561,241.91,541.82,242.23,541.82,253.74Z" />
                     <path d="M662.88,334c0,12.79-20.47,10.23-24.47.48L617.3,284.13v40.45c0,15.35,1.12,16.79-15.19,16.79-10.88,0-8.32-5.75-8.32-15V235.51c0-11.83,2.4-10.87,14.56-10.87,11.83,0,12.95,13.43,16.95,23,4.64,11.52,9.27,22.87,14.07,34.39v-43.5c0-2.24-1.92-13.91,2.56-13.91,3.36-2.08,14.23,0,18.23,0C665.76,224.64,662.88,323,662.88,334Z" />
                     <path
-                      className={styles["logo-flame"]}
+                      className="group-hover:text-krapinjon-orange transition-colors ease-easeAlt2 duration-300"
                       d="M417.79,93.42c-4.38,3.4-13.85,10.72-19.71,11.41a1.56,1.56,0,0,1-1.67-1.24c-2-8.6,1.83-34,17.26-50.18a1.53,1.53,0,0,0-1.42-2.56c-10,2.12-31.53,7.44-39.29,15.6a1.57,1.57,0,0,1-2.66-.27c-6.08-10.4-35-56-80.53-66.1-1.74-.39-2.69.68-2.1,2.36,4.45,12.75,21.07,62.18,16.79,76a.94.94,0,0,1-1.49.43c-4.49-3.64-23.29-18.26-36.3-21.51-2-.49-3,.7-2.35,2.62,3.81,10.49,14.41,44.21,4.78,60.11-17.09,28.23-4.84,86.65,43,94.71a1.65,1.65,0,0,0,.47.05,2.16,2.16,0,0,0,1.62-3.4,95.07,95.07,0,0,0-6.35-7.82c-4.39-5-8.95-10.24-12.54-17.92a54.06,54.06,0,0,1-5.42-23.5,55.2,55.2,0,0,1,6.64-25.17l.07-.13a47.71,47.71,0,0,1,23.26-20.33,51.44,51.44,0,0,1,24.21-3.45,55.73,55.73,0,0,1,23.11,7.42,47.76,47.76,0,0,1,20.18,22.87,49.89,49.89,0,0,1-.11,38.65c-4,9.91-9.29,16.06-14.24,21.82a79.41,79.41,0,0,0-7.14,9.19c-.59.94.1,1.8,1.2,1.8a6.19,6.19,0,0,0,1.3-.1,14.64,14.64,0,0,0,2.13-.59C417.58,198.7,435.83,144,421,94.45A2,2,0,0,0,417.79,93.42Z"
                     />
                     <path d="M334.77,208.22a123.9,123.9,0,0,0,4-25.46c.22-4.64,1.79-15.63-3.36-18.19-1.75-.88-5.26-.21-5.74,2-1,4.65,7.28,8.16,10.65,8.87s10.76,1.75,13.56-1.28c2.39-2.58-.22-4.8-3-3.87-4.89,1.65-3.44,10.59-3.52,14.5-.14,8-.13,15.9-.09,23.85,0,.91,2.91.36,2.9-.78,0-8.4-.05-16.81.13-25.22,0-1.7.06-3.41.16-5.11,0-.84.1-1.67.2-2.5.37-.85.08-1.15-.88-.89-1.27-.7-5.91.1-7.73-.29a14.66,14.66,0,0,1-6.84-3.35c-.8-.72-3.65-3.11-2-3.7s2.29,4.27,2.47,5.5a62.71,62.71,0,0,1,0,12.63,124.88,124.88,0,0,1-3.91,23.61c-.28,1.06,2.64.65,2.9-.35Z" />
@@ -84,12 +83,12 @@ export default function Layout({ children }) {
           </motion.div>
 
           <motion.div
-            className={styles["header-links"]}
+            className="flex flex-1 justify-end md:justify-between max-w-xs visible pl-14"
             variants={animations.headerAnimation}
           >
             <Link href="/projekti" prefetch={false} passHref>
               <motion.a
-                className={styles["header-link"]}
+                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
                 variants={animations.headerChildAnimation}
               >
                 Projekti
@@ -97,7 +96,7 @@ export default function Layout({ children }) {
             </Link>
             <Link href="/novosti" prefetch={false} passHref>
               <motion.a
-                className={styles["header-link"]}
+                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
                 variants={animations.headerChildAnimation}
               >
                 Novosti
@@ -105,7 +104,7 @@ export default function Layout({ children }) {
             </Link>
             <Link href="/informacije" prefetch={false} passHref>
               <motion.a
-                className={styles["header-link"]}
+                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
                 variants={animations.headerChildAnimation}
               >
                 Informacije
@@ -114,7 +113,7 @@ export default function Layout({ children }) {
 
             <motion.a
               onClick={openCloseMenu}
-              className={styles["header-link"]}
+              className="block md:hidden cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
               variants={animations.headerChildAnimation}
             >
               {state.menuName}

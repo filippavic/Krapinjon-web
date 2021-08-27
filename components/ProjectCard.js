@@ -3,11 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimateSharedLayout } from "framer-motion";
 
-import { getCloudinaryThumbLink } from "../utils/helperFunctions";
+import {
+  getCloudinaryThumbLink,
+  getProjectLink,
+} from "../utils/helperFunctions";
 
 export default function ProjectCard(props) {
   const { name, slug, thumbnail, description, link } = props.project.fields;
 
+  let eventLink = getProjectLink(link, slug);
   let thumbLink = getCloudinaryThumbLink(thumbnail[0].original_secure_url);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -65,8 +69,8 @@ export default function ProjectCard(props) {
               >
                 {description}
               </motion.span>
-              {link && (
-                <Link href={link} passHref>
+              {eventLink && (
+                <Link href={eventLink.url} passHref prefetch={false}>
                   <motion.a
                     className="flex items-center justify-center py-1.5 px-4 rounded-full bg-transparent border border-krapinjon-orange hover:border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold cursor-pointer shadow-2xl transition duration-200 ease-in-out"
                     initial={{ opacity: 0, y: 30 }}
@@ -78,6 +82,8 @@ export default function ProjectCard(props) {
                         duration: 0.2,
                       },
                     }}
+                    target={eventLink.external ? "_blank" : undefined}
+                    rel={eventLink.external ? "noopener noreferrer" : undefined}
                   >
                     Više...
                   </motion.a>
