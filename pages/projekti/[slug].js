@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 import { createClient } from "contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -15,6 +16,8 @@ import CalendarIcon from "@heroicons/react/outline/CalendarIcon";
 import LocationMarkerIcon from "@heroicons/react/outline/LocationMarkerIcon";
 import CurrencyEuroIcon from "@heroicons/react/outline/CurrencyEuroIcon";
 import InformationCircleIcon from "@heroicons/react/outline/InformationCircleIcon";
+
+// import SignUpForm from "../../components/SignUpForm";
 
 import landscape from "../../public/images/krapinjon_landscape_bg.jpg";
 
@@ -105,6 +108,8 @@ const textRenderOptions = {
   },
 };
 
+const DynamicForm = dynamic(() => import("../../components/SignUpForm"));
+
 // Contentful client
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -156,9 +161,13 @@ export default function EventInfo({ event }) {
     startDateTime,
     endDateTime,
     allDay,
+    finished,
     price,
     documents,
   } = event.fields;
+
+  // sign up form placeholder
+  let signUp = "true";
 
   let eventDateTime = dateTimeToString(startDateTime, endDateTime, allDay);
   let thumbLink = getCloudinaryThumbLink(thumbnail[0].original_secure_url);
@@ -173,6 +182,12 @@ export default function EventInfo({ event }) {
   };
 
   let mapsLocation = locationForMaps ? locationForMaps : location;
+
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+
+  const openCloseSignUpForm = () => {
+    setShowSignUpForm(!showSignUpForm);
+  };
 
   return (
     <motion.div
@@ -232,6 +247,12 @@ export default function EventInfo({ event }) {
       </Head>
 
       <div className="w-full h-full">
+        <DynamicForm
+          isVisible={showSignUpForm}
+          openCloseSignUpForm={openCloseSignUpForm}
+          name={name}
+        />
+
         <div className="w-full flex justify-center">
           <motion.h1
             className="absolute z-50 flex self-center justify-center font-display text-6xl"
@@ -316,7 +337,11 @@ export default function EventInfo({ event }) {
           </motion.div>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row w-full h-auto justify-evenly content-center items-center p-7">
+        <div
+          className={`flex flex-col md:flex-row w-full h-auto justify-evenly content-center items-center ${
+            signUp && !finished ? "pt-7 pl-7 pr-7 pb-0" : "p-7"
+          }`}
+        >
           <motion.div
             variants={animations.elementAnimation}
             className="inline-flex items-center"
@@ -351,6 +376,18 @@ export default function EventInfo({ event }) {
             </span>
           </motion.div>
         </div>
+
+        {signUp && !finished && (
+          <div className="flex flex-col md:flex-row w-full h-auto justify-evenly content-center items-center pt-2 pb-3">
+            <motion.button
+              className="flex items-center justify-center py-2 px-5 rounded-full bg-transparent border border-krapinjon-orange hover:bg-krapinjon-orange text-krapinjon-orange hover:text-white text-xs font-semibold mt-5 cursor-pointer shadow-2xl transition duration-200 ease-in-out"
+              onClick={openCloseSignUpForm}
+              variants={animations.elementAnimation}
+            >
+              Potrebna je prijava - prijavi se ovdje!
+            </motion.button>
+          </div>
+        )}
 
         {isMapOpen && (
           <div className="w-full h-72 bg-white">
