@@ -15,7 +15,8 @@ body {
   margin: 0;
   font-family: "Manrope", sans-serif;
   font-size: 16px;
-  background-color: black;
+  background-color: rgb(7, 7, 7);
+  background-image: url("/images/texture.png");
   scroll-behavior: smooth;
   color: white;
 }

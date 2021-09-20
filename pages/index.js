@@ -9,10 +9,11 @@ import { createClient } from "contentful";
 import { Switch } from "@headlessui/react";
 import ReactCardCarousel from "react-card-carousel";
 import EventCard from "../components/EventCard";
-import ChevronLeftIcon from "@heroicons/react/solid/ChevronLeftIcon";
-import ChevronRightIcon from "@heroicons/react/solid/ChevronRightIcon";
+import ChevronDoubleDownIcon from "@heroicons/react/solid/ChevronDoubleDownIcon";
+import ChevronDownIcon from "@heroicons/react/solid/ChevronDownIcon";
 
 import cave from "../public/images/krapinjon_cave_bg.jpg";
+import landingImage from "../public/images/landing.jpg";
 
 import animations from "../utils/landingAnimations";
 import styles from "../styles/Home.module.css";
@@ -132,6 +133,15 @@ export default function Home({ events }) {
       </Head>
 
       <div className="w-full h-screen flex justify-center items-center">
+        <motion.div
+          className="absolute bottom-10 z-50"
+          variants={animations.backgroundAnimation}
+          initial="initial"
+          animate="animate"
+        >
+          <ChevronDoubleDownIcon className="h-5 w-5 text-white animate-pulse" />
+        </motion.div>
+
         <motion.div className="w-full h-full absolute flex justify-center items-center z-20">
           <motion.h1
             className="font-display text-6xl text-center"
@@ -154,90 +164,6 @@ export default function Home({ events }) {
         </motion.div>
 
         <motion.div
-          className="z-40"
-          variants={animations.contentAnimation}
-          initial="initial"
-          animate="animate"
-        >
-          <div
-            className={classNames(
-              styles["smoke"],
-              isSwitched && styles["switched-smoke"]
-            )}
-          >
-            <span className={styles["smoke-0"]}></span>
-            <span className={styles["smoke-1"]}></span>
-            <span className={styles["smoke-2"]}></span>
-            <span className={styles["smoke-3"]}></span>
-            <span className={styles["smoke-4"]}></span>
-            <span className={styles["smoke-5"]}></span>
-            <span className={styles["smoke-6"]}></span>
-            <span className={styles["smoke-7"]}></span>
-            <span className={styles["smoke-8"]}></span>
-            <span className={styles["smoke-9"]}></span>
-          </div>
-
-          <div
-            className={classNames(
-              styles["fire"],
-              isSwitched && styles["switched-fire"]
-            )}
-          >
-            <div className={styles["fire-left"]}>
-              <div className={styles["main-fire"]}></div>
-              <div
-                className={classNames(
-                  styles["particle-fire"],
-                  !isSwitched && styles["particle-off"]
-                )}
-              ></div>
-            </div>
-            <div className={styles["fire-main"]}>
-              <div className={styles["main-fire"]}></div>
-              <div
-                className={classNames(
-                  styles["particle-fire"],
-                  !isSwitched && styles["particle-off"]
-                )}
-              ></div>
-            </div>
-            <div className={styles["fire-right"]}>
-              <div className={styles["main-fire"]}></div>
-              <div
-                className={classNames(
-                  styles["particle-fire"],
-                  !isSwitched && styles["particle-off"]
-                )}
-              ></div>
-            </div>
-            <div className={styles["fire-bottom"]}>
-              <div className={styles["main-fire"]}></div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-8 z-50"
-          variants={animations.backgroundAnimation}
-          initial="initial"
-          animate="animate"
-        >
-          <Switch
-            checked={isSwitched}
-            onChange={toggleSwitch}
-            className={`${isSwitched ? "bg-krapinjon-orange" : "bg-transparent"}
-            z-75 relative inline-block h-6 w-16 rounded-full cursor-pointer border-2 border-medium-gray`}
-          >
-            <span className="sr-only">Zapali vatru</span>
-            <span
-              aria-hidden="true"
-              className={`${isSwitched ? "translate-x-5" : "-translate-x-5"}
-                pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-lg transform ring-0 transition ease-easeAlt duration-500`}
-            />
-          </Switch>
-        </motion.div>
-
-        <motion.div
           className="w-full h-full overflow-x-hidden"
           variants={animations.backgroundAnimation}
           initial="initial"
@@ -245,11 +171,10 @@ export default function Home({ events }) {
         >
           <motion.div>
             <Image
-              src={cave}
+              src={landingImage}
               layout="fill"
               objectFit="cover"
               objectPosition="top"
-              unoptimized="true"
               alt=""
             />
           </motion.div>
@@ -336,7 +261,7 @@ export default function Home({ events }) {
                     className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
                     onClick={() => carouselRef.current.prev()}
                   >
-                    <ChevronLeftIcon className="h-5 w-5 text-white" />
+                    <ChevronDownIcon className="h-5 w-5 text-white transform rotate-90" />
                   </motion.div>
                 )}
 
@@ -373,7 +298,7 @@ export default function Home({ events }) {
                     className="rounded-full h-10 w-10 z-50 flex items-center justify-center border border-krapinjon-orange hover:bg-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
                     onClick={() => carouselRef.current.next()}
                   >
-                    <ChevronRightIcon className="h-5 w-5 text-white" />
+                    <ChevronDownIcon className="h-5 w-5 text-white transform -rotate-90" />
                   </motion.div>
                 )}
               </motion.div>

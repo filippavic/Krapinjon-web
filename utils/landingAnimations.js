@@ -29,7 +29,7 @@ const sentenceAnimation = {
     opacity: 1,
     transition: {
       delayChildren: 0.5,
-      staggerChildren: 0.05,
+      staggerChildren: 0.04,
     },
   },
 };
