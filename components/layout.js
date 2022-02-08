@@ -88,7 +88,7 @@ export default function Layout({ children }) {
           >
             <Link href="/projekti" prefetch={false} passHref>
               <motion.a
-                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
+                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300 hover:text-shadow"
                 variants={animations.headerChildAnimation}
               >
                 Projekti
@@ -96,7 +96,7 @@ export default function Layout({ children }) {
             </Link>
             <Link href="/novosti" prefetch={false} passHref>
               <motion.a
-                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
+                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300 hover:text-shadow"
                 variants={animations.headerChildAnimation}
               >
                 Novosti
@@ -104,7 +104,7 @@ export default function Layout({ children }) {
             </Link>
             <Link href="/informacije" prefetch={false} passHref>
               <motion.a
-                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
+                className="hidden md:block cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300 hover:text-shadow"
                 variants={animations.headerChildAnimation}
               >
                 Informacije
@@ -113,7 +113,7 @@ export default function Layout({ children }) {
 
             <motion.a
               onClick={openCloseMenu}
-              className="block md:hidden cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300"
+              className="block md:hidden cursor-pointer font-display text-base text-white hover:text-krapinjon-orange transition ease-easeAlt2 duration-300 hover:text-shadow"
               variants={animations.headerChildAnimation}
             >
               {state.menuName}
@@ -147,18 +147,18 @@ export default function Layout({ children }) {
 
             <div className="flex-none w-full md:w-2/6 lg:w-3/6 flex flex-col justify-between items-center mt-5 md:mt-0">
               <h2 className="w-2/3 text-center text-sm mt-3 md:mt-0 md:text-left font-semibold">
-                Krapinska ulica 1, 49000 Krapina
+                Podgora Krapinska 77, 49000 Krapina
               </h2>
 
               <div className="w-2/3 mt-3 md:mt-0 flex flex-col items-center md:items-start md:justify-items-start">
-                <a
+                {/* <a
                   href="tel:+38591123456"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-auto text-white font-normal text-sm hover:text-krapinjon-orange cursor-pointer transition duration-200 ease-in-out"
                 >
                   +385 91 123 456
-                </a>
+                </a> */}
                 <a
                   href="mailto:info@krapinjon.hr"
                   className="w-auto text-white font-normal text-sm hover:text-krapinjon-orange transition duration-200 ease-in-out"
@@ -210,7 +210,7 @@ export default function Layout({ children }) {
                     href="#"
                     className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
-                    Twitter
+                    LinkedIn
                   </a>
                   <a
                     href="#"

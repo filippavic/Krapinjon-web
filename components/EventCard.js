@@ -99,7 +99,7 @@ export default function EventCard(props) {
       <Link href={link.url} prefetch={false} passHref>
         <motion.a
           variants={animations.eventButtonAnimation}
-          className="flex items-center justify-center py-2 px-5 rounded-full bg-transparent border border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold mt-5 cursor-pointer shadow-2xl transition duration-200 ease-in-out"
+          className="flex items-center justify-center py-2 px-5 rounded-full bg-transparent border border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold mt-5 cursor-pointer hover:shadow-lg hover:shadow-krapinjon-orange/40 transition duration-200 ease-in-out"
           target={link.external ? "_blank" : undefined}
           rel={link.external ? "noopener noreferrer" : undefined}
         >
