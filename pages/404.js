@@ -29,7 +29,7 @@ export default function NotFound() {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.MAIN_URL + "/404"} />
+        <meta property="og:url" content={"https://www.krapinjon.hr/404"} />
         <meta
           property="og:title"
           content="Stranica ne postoji | Krapinjon - udruga mladih iz Krapine"
@@ -39,7 +39,7 @@ export default function NotFound() {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={process.env.MAIN_URL + "/404"} />
+        <meta name="twitter:url" content={"https://www.krapinjon.hr/404"} />
         <meta
           name="twitter:title"
           content="Stranica ne postoji | Krapinjon - udruga mladih iz Krapine"

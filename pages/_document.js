@@ -6,12 +6,26 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            href="/fonts/distress.otf"
+            as="font"
+            crossOrigin=""
           />
           <link
             rel="preload"
-            href="/fonts/distress.otf"
+            href="/fonts/Manrope/Manrope-Regular.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Manrope/Manrope-SemiBold.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Manrope/Manrope-ExtraBold.ttf"
             as="font"
             crossOrigin=""
           />

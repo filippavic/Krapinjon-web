@@ -1,6 +1,8 @@
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "media",
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     fontFamily: {
       sans: ["Manrope", "sans-serif"],
@@ -35,9 +37,6 @@ module.exports = {
         easeAlt2: "cubic-bezier(0.145, 0.045, 0.155, 1)",
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 };

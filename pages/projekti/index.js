@@ -82,7 +82,10 @@ export default function Projekti({ projects, upcomingEvents, pastEvents }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.MAIN_URL + "/projekti"} />
+        <meta
+          property="og:url"
+          content={"https://www.krapinjon.hr/projekti/"}
+        />
         <meta
           property="og:title"
           content="Projekti | Krapinjon - udruga mladih iz Krapine"
@@ -92,7 +95,10 @@ export default function Projekti({ projects, upcomingEvents, pastEvents }) {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={process.env.MAIN_URL + "/projekti"} />
+        <meta
+          name="twitter:url"
+          content={"https://www.krapinjon.hr/projekti/"}
+        />
         <meta
           name="twitter:title"
           content="Projekti | Krapinjon - udruga mladih iz Krapine"
@@ -156,7 +162,7 @@ export default function Projekti({ projects, upcomingEvents, pastEvents }) {
           initial="initial"
           animate="animate"
         >
-          Uskoro
+          Organiziramo
         </motion.h1>
 
         <div className="justify-items-center mt-12">
@@ -166,8 +172,8 @@ export default function Projekti({ projects, upcomingEvents, pastEvents }) {
             })}
 
           {upcomingEvents.length == 0 && (
-            <h2 className="text-center text-lg">
-              Trenutno nema nadolazećih događaja
+            <h2 className="text-center text-lg mb-20">
+              Trenutno nema nadolazećih događaja. Provjeri opet uskoro!
             </h2>
           )}
         </div>

@@ -73,7 +73,7 @@ export default function Novosti({ news, totalPages, currentPage }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.MAIN_URL + "/novosti"} />
+        <meta property="og:url" content={"https://www.krapinjon.hr/novosti"} />
         <meta
           property="og:title"
           content="Novosti | Krapinjon - udruga mladih iz Krapine"
@@ -83,7 +83,7 @@ export default function Novosti({ news, totalPages, currentPage }) {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={process.env.MAIN_URL + "/novosti"} />
+        <meta name="twitter:url" content={"https://www.krapinjon.hr/novosti"} />
         <meta
           name="twitter:title"
           content="Novosti | Krapinjon - udruga mladih iz Krapine"

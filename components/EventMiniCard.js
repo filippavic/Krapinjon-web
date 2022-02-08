@@ -91,7 +91,7 @@ export default function EventMiniCard(props) {
           <div className="w-min">
             <Link href={link.url} passHref>
               <motion.a
-                className="flex items-center justify-center py-1.5 px-4 rounded-full bg-transparent border border-krapinjon-orange hover:border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold cursor-pointer shadow-2xl transition duration-200 ease-in-out"
+                className="flex items-center justify-center py-1.5 px-4 rounded-full bg-transparent border border-krapinjon-orange hover:border-krapinjon-orange hover:bg-krapinjon-orange text-white text-xs font-semibold cursor-pointer hover:shadow-md hover:shadow-krapinjon-orange/40 transition duration-200 ease-in-out"
                 variants={animations.elementAnimation}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}

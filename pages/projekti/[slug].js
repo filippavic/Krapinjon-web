@@ -5,6 +5,7 @@ import { motion, useViewportScroll, useTransform } from "framer-motion";
 import { createClient } from "contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
+import ShareComp from "../../components/ShareComp";
 
 import {
   getCloudinaryThumbLink,
@@ -22,19 +23,19 @@ import animations from "../../utils/otherAnimations";
 
 // Rich text component customization
 const Heading1 = ({ children }) => (
-  <motion.h1 className="font-bold text-krapinjon-orange text-lg text-justify">
+  <motion.h1 className="font-bold text-krapinjon-orange text-lg">
     {children}
   </motion.h1>
 );
 
 const Heading2 = ({ children }) => (
-  <motion.h2 className="font-bold text-krapinjon-orange text-base text-justify">
+  <motion.h2 className="font-bold text-dark-gray text-base">
     {children}
   </motion.h2>
 );
 
 const Heading3 = ({ children }) => (
-  <motion.h3 className="font-semibold text-krapinjon-orange text-sm text-justify">
+  <motion.h3 className="font-semibold text-medium-gray text-sm">
     {children}
   </motion.h3>
 );
@@ -44,13 +45,13 @@ const Bold = ({ children }) => (
 );
 
 const Text = ({ children }) => (
-  <motion.p className="align-center text-justify text-black py-3 font-normal">
+  <motion.p className="align-center text-black py-3 font-normal">
     {children}
   </motion.p>
 );
 
 const Quote = ({ children }) => (
-  <motion.blockquote className="py-5 px-5 align-center text-justify">
+  <motion.blockquote className="py-5 px-5 align-center">
     {children}
   </motion.blockquote>
 );
@@ -80,7 +81,7 @@ const textRenderOptions = {
     [INLINES.HYPERLINK]: function Hyperlink({ data }, children) {
       return (
         <a
-          className="text-krapinjon-orange underline"
+          className="text-krapinjon-orange underline decoration-wavy"
           href={data.uri}
           target="_blank"
           rel="noopener noreferrer"
@@ -100,6 +101,11 @@ const textRenderOptions = {
         <li className="list-item text-krapinjon-orange leading-none">
           {children}
         </li>
+      );
+    },
+    [BLOCKS.HR]: function Hr(node, children) {
+      return (
+        <div className="border-t border-krapinjon-orange opacity-40 my-9"></div>
       );
     },
   },
@@ -200,7 +206,10 @@ export default function EventInfo({ event }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.MAIN_URL + "/" + slug} />
+        <meta
+          property="og:url"
+          content={"https://www.krapinjon.hr/projekti/" + slug}
+        />
         <meta
           property="og:title"
           content={
@@ -215,7 +224,10 @@ export default function EventInfo({ event }) {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={process.env.MAIN_URL + "/" + slug} />
+        <meta
+          name="twitter:url"
+          content={"https://www.krapinjon.hr/projekti/" + slug}
+        />
         <meta
           name="twitter:title"
           content={
@@ -419,6 +431,21 @@ export default function EventInfo({ event }) {
         ) : (
           <></>
         )}
+        <motion.div
+          className="p-7 flex flex-col"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 1,
+              ease: [0.6, 0.01, -0.05, 0.9],
+            },
+          }}
+        >
+          <span className="text-gray-400 font-semibold">Podijeli</span>
+          <ShareComp url={"https://www.krapinjon.hr/projekti/" + slug} />
+        </motion.div>
       </motion.div>
     </motion.div>
   );

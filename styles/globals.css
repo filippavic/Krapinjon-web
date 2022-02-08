@@ -9,6 +9,34 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope/Manrope-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope/Manrope-SemiBold.ttf");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope/Manrope-ExtraBold.ttf");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0px 2px 15px #fc8a17;
+  }
+}
+
 html,
 body {
   padding: 0;

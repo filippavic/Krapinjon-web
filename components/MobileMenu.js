@@ -18,7 +18,7 @@ export default function MobileMenu({ isVisible, openCloseMenu }) {
           <div className="flex flex-col w-4/5 h-3/5 text-center justify-evenly">
             <Link href="/projekti" prefetch={false} passHref>
               <motion.a
-                className="font-display text-lg hover:text-krapinjon-orange"
+                className="font-display text-lg hover:text-krapinjon-orange hover:text-shadow"
                 variants={animations.headerChildAnimation}
                 onClick={openCloseMenu}
               >
@@ -27,7 +27,7 @@ export default function MobileMenu({ isVisible, openCloseMenu }) {
             </Link>
             <Link href="/novosti" prefetch={false} passHref>
               <motion.a
-                className="font-display text-lg hover:text-krapinjon-orange"
+                className="font-display text-lg hover:text-krapinjon-orange hover:text-shadow"
                 variants={animations.headerChildAnimation}
                 onClick={openCloseMenu}
               >
@@ -36,7 +36,7 @@ export default function MobileMenu({ isVisible, openCloseMenu }) {
             </Link>
             <Link href="/informacije" prefetch={false} passHref>
               <motion.a
-                className="font-display text-lg hover:text-krapinjon-orange"
+                className="font-display text-lg hover:text-krapinjon-orange hover:text-shadow"
                 variants={animations.headerChildAnimation}
                 onClick={openCloseMenu}
               >
