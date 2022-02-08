@@ -110,7 +110,7 @@ export default function Home({ events }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.MAIN_URL} />
+        <meta property="og:url" content={"https://www.krapinjon.hr"} />
         <meta
           property="og:title"
           content="Krapinjon - udruga mladih iz Krapine"
@@ -120,7 +120,7 @@ export default function Home({ events }) {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={process.env.MAIN_URL} />
+        <meta name="twitter:url" content={"https://www.krapinjon.hr"} />
         <meta
           name="twitter:title"
           content="Krapinjon - udruga mladih iz Krapine"
@@ -299,7 +299,7 @@ export default function Home({ events }) {
               initial="initial"
               animate={inView ? "animate" : "initial"}
             >
-              Uskoro
+              Organiziramo
             </motion.h1>
           )}
         </InView>
@@ -308,13 +308,13 @@ export default function Home({ events }) {
           <InView threshold={0.3}>
             {({ ref, inView }) => (
               <motion.h2
-                className="font-normal text-base text-white text-center mt-12"
+                className="font-normal text-base text-white text-center mt-12 mb-12"
                 ref={ref}
                 variants={animations.elementAnimation}
                 initial="initial"
                 animate={inView ? "animate" : "initial"}
               >
-                Trenutno nema nadolazećih događaja
+                Trenutno nema nadolazećih događaja. Provjeri opet uskoro!
               </motion.h2>
             )}
           </InView>

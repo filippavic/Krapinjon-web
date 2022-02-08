@@ -195,29 +195,37 @@ export default function Layout({ children }) {
 
                 <div className="flex flex-col">
                   <a
-                    href="#"
+                    href="https://www.facebook.com/krapinjon"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Facebook
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/udruga.krapinjon"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Instagram
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/krapinjon"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     LinkedIn
                   </a>
-                  <a
+                  {/* <a
                     href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-white font-normal text-xs text-right md:text-left hover:text-krapinjon-orange mb-1 transition duration-200 ease-in-out"
                   >
                     Youtube
-                  </a>
+                  </a> */}
                 </div>
 
                 <div
